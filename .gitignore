@@ -1,0 +1,6 @@
+﻿.vs
+packages
+QBicSamples/Logs
+QBicSamples/obj
+QBicSamples/bin
+QBicSamples/Data/appData.db
