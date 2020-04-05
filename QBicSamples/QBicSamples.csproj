@@ -237,19 +237,19 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackEnd\AdvancedSample\AdvancedDelete.cs" />
-    <Compile Include="BackEnd\AdvancedSample\AdvancedEdit.cs" />
-    <Compile Include="BackEnd\AdvancedSample\AdvancedAdd.cs" />
-    <Compile Include="BackEnd\AdvancedSample\AdvancedDetails.cs" />
-    <Compile Include="BackEnd\AdvancedSample\AdvancedModify.cs" />
-    <Compile Include="BackEnd\AdvancedSample\AdvancedView.cs" />
-    <Compile Include="BackEnd\BackgroundProcessing\SampleBackgroundProcessing.cs" />
-    <Compile Include="BackEnd\BasicCrudSample\CategoryCrudMenuItem.cs" />
-    <Compile Include="BackEnd\BasicSample\SampleAdd.cs" />
-    <Compile Include="BackEnd\BasicSample\SampleDelete.cs" />
-    <Compile Include="BackEnd\BasicSample\SampleEdit.cs" />
-    <Compile Include="BackEnd\BasicSample\SampleModify.cs" />
-    <Compile Include="BackEnd\BasicSample\SampleView.cs" />
+    <Compile Include="Samples\AdvancedSample\AdvancedDelete.cs" />
+    <Compile Include="Samples\AdvancedSample\AdvancedEdit.cs" />
+    <Compile Include="Samples\AdvancedSample\AdvancedAdd.cs" />
+    <Compile Include="Samples\AdvancedSample\AdvancedDetails.cs" />
+    <Compile Include="Samples\AdvancedSample\AdvancedModify.cs" />
+    <Compile Include="Samples\AdvancedSample\AdvancedView.cs" />
+    <Compile Include="Samples\BackgroundProcessing\SampleBackgroundProcessing.cs" />
+    <Compile Include="Samples\BasicCrudSample\CategoryCrudMenuItem.cs" />
+    <Compile Include="Samples\BasicSample\SampleAdd.cs" />
+    <Compile Include="Samples\BasicSample\SampleDelete.cs" />
+    <Compile Include="Samples\BasicSample\SampleEdit.cs" />
+    <Compile Include="Samples\BasicSample\SampleModify.cs" />
+    <Compile Include="Samples\BasicSample\SampleView.cs" />
     <Compile Include="Models\Samples\SampleCategory.cs" />
     <Compile Include="Models\Samples\SampleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
