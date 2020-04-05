@@ -1,30 +1,67 @@
-AdvancedAdd**, **AdvancedDelete**, **AdvancedEdit**, **AdvancedModify** and **AdvancedView** classes from **AdvancedSample** are used to make actions with data entities of the project.
+# Introduction
+The **AdvancedSample** folder is the most complicate method of creating a view, with add, edit and delete functionality.
 
-**AdvancedModify** - class for Add or Edit entity
+The classes in this folder correspond more or less to CRUD functionality.
 
-**AdvancedView** - class for view entities
+Generally though, when adding CRUD functionality using QBic, one would start with a **View** screen, from where it would be possible add new items.
 
-**AdvancedDelete** - class for delete entity
+The different classes are explained in more detail below:
+
+## AdvancedView
+AdvancedView.cs inherits from **ShowView**, which is the most primitive class to inherit from for a view screen.
+
+When creating a **ShowView** class, the following methods should generally be implemented:
+
+### AllowInMenu
+Setting this value to true, will a menu item to be added which will show this view when clicked. If unimplemented, this value defaults to **false**.
+
+### Description
+The value in this field is what is displayed when adding a menu, and is also the default Title of the view (which can be overridden also).
+
+### ConfigureColumns
+This method is used to set the columns that will be added to the view.
+The **columnConfig** parameter can be added to using multiple utility methods such as 
+ > columnConfig.AddStringColumn("Column Label", "ColumnName");
+ Where "Column Label" is the label that is displayed in the view, and ColumnName is the value of the field that is returned by the **GetData** method.
+
+### GetData
+This method should return the data to be shown for the **current** view only.
+This method is passed a **settings** parameter which contains values to specify the number of records per page, the current page, a filter value, etc.
+These values should be used to return the relevant records, where the field names returned match the "ColumnName" values as is set by the **ConfigureColumns* function.
+
+### GetDataCount
+This method needs to return the total number of records that exist for the view. 
+This number is used to calculate how many pages there are based on the number of items to display per page.
+
+### GetId
+This method should return a MenuNumber/EventNumber that uniquely identifies this view.
+Each action/event/menu item in QBic has a unique menu or event number that is used to link an action with the code to execute.
+
+### GetViewMenu
+This is an optional field, which does not need to be overridden.
+If overridden, this adds buttons near the top of the view, and are only visible when this view is shown.
+An example of when this might be used is to create an "Add" button to add a new item, or a "Back" button, which can go back to a previously shown view.
+
+## AdvancedModify
+AdvancedModify.cs inherits from **GetInput**, which is the most primitive class to inherit from for an input screen.
+In most cases, adding a new item is very similar to modifying an existing item, and it is usually easiest to create a common **abstract** class that is responsible for both adding and editing a record.
+The following methods should be implemented for a "GetInput" class
+
+### AllowInMenu
+This has the same function as before, and is generally set to false, unless the input screen should be allowed to be initialized directly from the main menu, rather than from a view menu or view action.
+
+### Description
+The value in this field is what is displayed when adding a menu, and is also the default Title of the view (which can be overridden also).
+
+### Initialize
+This is an optional override, and is called first when the add or edit (modify) action has been triggered.
+
+### GetInputFields
+TODO: add more info
+
+...
+..
+.
 
 
-
-**AdvancedModify** class has following main methods:
-
-*GetInputFields()* is a method that return a list of input fields where a user can input data.
-
-*ProcessAction()* method performs some operations and validation on data and save data to a database. Parameter *actionNumber* has int value. 
-If user clicks 'Cancel', value of *actionNumber* will be 1 and if click on 'Submit', value of *actionNumber* will be 0.
-
-
-
-**AdvancedView** class is using to show data on the screen. Main methods of SampleView class are:
-
-*ConfigureColumns()* method allow to configure number of columns in table and type and value of data for every column.
-
-*GetData()* method allow user to prepare the data collection from database.
-
-*TransformData()* method allow user to make some transformation on data collection from database.
-
-*GetDataCount()* method count number of records that was retreive from database.
-
-*CreateQuery()* method query the database in order to retreive data.
+TODO: Add the other methods and classes same as i have done.
