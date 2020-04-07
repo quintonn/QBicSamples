@@ -57,11 +57,7 @@ The value in this field is what is displayed when adding a menu, and is also the
 This is an optional override, and is called first when the add or edit (modify) action has been triggered.
 
 ### GetInputFields
-TODO: add more info
 
-...
-..
-.
+### OnPropertyChanged
 
-
-TODO: Add the other methods and classes same as i have done.
+### ProcessAction
