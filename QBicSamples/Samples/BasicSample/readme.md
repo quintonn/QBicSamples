@@ -98,3 +98,90 @@ This is an optional override, and is called first when the add or edit (modify) 
 ### GetParameter
 
 
+## SampleAdd
+SampleAdd.cs inherits from **CoreModify** that inherits from **GetInput**, which is the most primitive class to inherit from for an input screen.
+In most cases, adding a new item is similar to modifying an existing item, and it is usually easiest to create a common **abstract** class that is responsible for both adding and editing a record.
+The following methods should be implemented for a "CoreModify" class
+
+### AllowInMenu
+This has the same function as before, and is generally set to false, unless the input screen should be allowed to be initialized directly from the main menu, rather than from a view menu or view action.
+
+### Description
+The value in this field is what is displayed when adding a menu, and is also the default Title of the view (which can be overridden also).
+
+
+### CreateDefaultItem
+
+### GetInputFields
+
+### GetInputParameters
+
+### GetParameterToPassToView
+
+### GetViewNumber
+
+### Initialize
+This is an optional override, and is called first when the add or edit (modify) action has been triggered.
+
+### InputFields
+
+### PerformModify
+
+### ProcessAction
+
+### ErrorMessage
+
+### GetParameter
+
+## SampleEdit
+SampleEdit.cs inherits from **CoreModify** that inherits from **GetInput**, which is the most primitive class to inherit from for an input screen.
+In most cases, editing a new item is similar to modifying an existing item, and it is usually easiest to create a common **abstract** class that is responsible for both adding and editing a record.
+The following methods should be implemented for a "CoreModify" class
+
+### AllowInMenu
+This has the same function as before, and is generally set to false, unless the input screen should be allowed to be initialized directly from the main menu, rather than from a view menu or view action.
+
+### Description
+The value in this field is what is displayed when adding a menu, and is also the default Title of the view (which can be overridden also).
+
+
+### CreateDefaultItem
+
+### GetInputFields
+
+### GetInputParameters
+
+### GetParameterToPassToView
+
+### GetViewNumber
+
+### Initialize
+This is an optional override, and is called first when the add or edit (modify) action has been triggered.
+
+### InputFields
+
+### PerformModify
+
+### ProcessAction
+
+### ErrorMessage
+
+### GetParameter
+
+## SampleDelete
+SampleEdit.cs inherits from **CoreDeleteAction** that inherits from **CoreAction**, which is the most primitive class to inherit from for an action.
+The following methods should be implemented for a "CoreDeleteAction" class
+
+### EntityName
+
+### Description
+
+### ViewNumber
+
+### ParametersToPassToView
+
+### DeleteOtherItems
+
+### ProcessAction
+
+### ErrorMessage
