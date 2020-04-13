@@ -1,7 +1,7 @@
 ﻿using log4net;
+using QBicSamples.SiteSpecific;
 using QBic.Core.Utilities;
 using QBicSamples.Models.Samples;
-using QBicSamples.SiteSpecific;
 using System;
 using System.Collections.Generic;
 using System.Linq;

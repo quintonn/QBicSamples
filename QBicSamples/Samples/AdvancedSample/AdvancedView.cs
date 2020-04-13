@@ -1,7 +1,7 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
-using QBicSamples.Models.Samples;
 using QBicSamples.SiteSpecific;
+using QBicSamples.Models.Samples;
 using System;
 using System.Collections;
 using System.Collections.Generic;

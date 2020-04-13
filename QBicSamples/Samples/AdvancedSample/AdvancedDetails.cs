@@ -1,5 +1,5 @@
-﻿using QBicSamples.Models.Samples;
-using QBicSamples.SiteSpecific;
+﻿using QBicSamples.SiteSpecific;
+using QBicSamples.Models.Samples;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebsiteTemplate.Backend.Services;

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
@@ -13,9 +13,9 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <title></title>
-    <link href='Frontend/styles.min.css?v=349eed22-6896-4df8-9504-7d2313fb32d2' rel='stylesheet' />
+    <link href='Frontend/styles.min.css?v=0bfef469-babc-4782-93c3-16085800b7b6' rel='stylesheet' />
     <link href="Frontend/css/siteOverrides.css" rel="stylesheet" />
-    <script src='Frontend/scripts.min.js?v=349eed22-6896-4df8-9504-7d2313fb32d2'></script>
+    <script src='Frontend/scripts.min.js?v=0bfef469-babc-4782-93c3-16085800b7b6'></script>
 </head>
 <body>
     <script type="text/html" id="largeHeadingTemplate">
@@ -43,7 +43,7 @@
             </li>
             <li>
                 <a href="javascript:void(0);" data-bind="text: applicationName, click: menuContainer().home().menuClick"></a>
-            </li>            
+            </li>
             <li class="w3-right">
                 <a href="javascript:void(0);" data-bind="click: logoutClick">Logout</a>
             </li>
@@ -61,12 +61,12 @@
                 <!-- /ko -->
             </nav>
         </span>
-</script>
+    </script>
     <div class="w3-container w3-app-color w3-center w3-hide-small w3-top" data-bind="template: { name: 'largeHeadingTemplate'}">
     </div>
     <!--<div class="w3-container w3-app-color w3-center w3-hide-small" data-bind="template: { name: 'largeHeadingTemplate'}" >
     </div>-->
-    <div class="w3-container w3-app-color w3-center w3-top w3-hide-medium w3-hide-large" data-bind="template: { name: 'smallHeadingTemplate'}" >
+    <div class="w3-container w3-app-color w3-center w3-top w3-hide-medium w3-hide-large" data-bind="template: { name: 'smallHeadingTemplate'}">
     </div>
     <!--<div class="w3-container w3-app-color w3-center w3-hide-large w3-hide-medium " data-bind="template: { name: 'smallHeadingTemplate'}">
     </div>-->
@@ -81,18 +81,19 @@
                 <div class="w3-container" style="top:0; left:0; bottom:0; right:0; margin: auto; position:absolute; height:5%">
                     <div class="w3-center">
                         <i class="fa fa-hourglass-half w3-xlarge w3-spin"></i>
-                        <p data-bind="text: busyText"></p>
-                    </div>
-                </div>
-            </p>
+            <p data-bind="text: busyText"></p>
         </div>
+    </div>
+    </p>
+    </div>
     </div>
     <div class="w3-hide-large w3-hide-medium" style="height:43px; color:white; background-color:white">
     </div>
     <div class="w3-hide-small" style="height:126.023px; color:white; background-color:white">
     </div>
-    <div data-bind="foreach: currentView">  
-        <div class="w3-container" > <!-- The extra container is to make the view nicely padded -->
+    <div data-bind="foreach: currentView">
+        <div class="w3-container">
+            <!-- The extra container is to make the view nicely padded -->
             <div class="w3-container" data-bind="html: html">
             </div>
         </div>

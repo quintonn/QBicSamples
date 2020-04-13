@@ -1,6 +1,6 @@
 ﻿using NHibernate;
-using QBicSamples.Models.Samples;
 using QBicSamples.SiteSpecific;
+using QBicSamples.Models.Samples;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

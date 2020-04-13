@@ -237,6 +237,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackEnd\Invoices\EditInvoice.cs" />
+    <Compile Include="BackEnd\Invoices\ViewInvoices.cs" />
+    <Compile Include="Models\Invoice.cs" />
     <Compile Include="Samples\AdvancedSample\AdvancedDelete.cs" />
     <Compile Include="Samples\AdvancedSample\AdvancedEdit.cs" />
     <Compile Include="Samples\AdvancedSample\AdvancedAdd.cs" />

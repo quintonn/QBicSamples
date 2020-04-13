@@ -1,4 +1,10 @@
-﻿using System;
+﻿using NHibernate;
+using QBicSamples.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using WebsiteTemplate.Menus.InputItems;
+using WebsiteTemplate.Models.NonDatabase;
 using WebsiteTemplate.Utilities;
 
 namespace QBicSamples.SiteSpecific
@@ -11,7 +17,7 @@ namespace QBicSamples.SiteSpecific
 
         public override bool UpdateDatabase => true; // Set to true first time to create tables. Also set to true after making changes
 
-        public override string ApplicationPassPhrase => "xxxxxx"; // This is used for encrypting/decrypting password inputs. Should be different for each project
+        public override string ApplicationPassPhrase => "RL&xFuVM&k]u[Zx/:*RFWBS5c};{Jp%~"; // This is used for encrypting/decrypting password inputs. Should be different for each project
 
         public override Type GetApplicationStartupType => typeof(Startup);
 
@@ -19,7 +25,7 @@ namespace QBicSamples.SiteSpecific
 
         public override string GetApplicationName()
         {
-            return "QBicSamples";
+            return "Invoices";
         }
     }
 }

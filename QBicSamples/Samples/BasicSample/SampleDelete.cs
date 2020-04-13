@@ -1,5 +1,5 @@
-﻿using QBicSamples.Models.Samples;
-using QBicSamples.SiteSpecific;
+﻿using QBicSamples.SiteSpecific;
+using QBicSamples.Models.Samples;
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.ViewItems.CoreItems;
