@@ -11,9 +11,9 @@ using WebsiteTemplate.Menus.ViewItems.CoreItems;
 
 namespace QBicSamples.BackEnd.Invoices
 {
-    public class ViewSubjects : CoreView<Invoice>
+    public class ViewInvoices : CoreView<Invoice>
     {
-        public ViewSubjects(DataService dataService) : base(dataService)
+        public ViewInvoices(DataService dataService) : base(dataService)
         {
         }
 

@@ -1,10 +1,4 @@
-﻿using NHibernate;
-using QBicSamples.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using WebsiteTemplate.Menus.InputItems;
-using WebsiteTemplate.Models.NonDatabase;
+﻿using System;
 using WebsiteTemplate.Utilities;
 
 namespace QBicSamples.SiteSpecific
