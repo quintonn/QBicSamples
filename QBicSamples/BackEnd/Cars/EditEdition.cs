@@ -11,17 +11,18 @@ using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.InputItems;
 using WebsiteTemplate.Utilities;
 
-namespace QBicSamples.BackEnd.Invoices
+namespace QBicSamples.BackEnd.Cars
 {
-    public class EditInvoice : GetInput
+    public class EditEdition : GetInput
     {
-        public override bool AllowInMenu => throw new NotImplementedException();
+        public override bool AllowInMenu => true;
 
-        public override string Description => throw new NotImplementedException();
+        public override string Description => "Edit Edition";
+
 
         public override EventNumber GetId()
         {
-            throw new NotImplementedException();
+            return MenuNumber.EditEdition;
         }
 
         public override IList<InputField> GetInputFields()

@@ -237,9 +237,14 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackEnd\Invoices\EditInvoice.cs" />
-    <Compile Include="BackEnd\Invoices\ViewInvoices.cs" />
-    <Compile Include="Models\Invoice.cs" />
+    <Compile Include="BackEnd\Cars\DeleteEdition.cs" />
+    <Compile Include="BackEnd\Cars\EditEdition.cs" />
+    <Compile Include="BackEnd\Cars\ViewEditions.cs" />
+    <Compile Include="BackEnd\Cars\ViewManufacturers.cs" />
+    <Compile Include="BackEnd\Cars\ViewModels.cs" />
+    <Compile Include="Models\CarEdition.cs" />
+    <Compile Include="Models\Manufacturer.cs" />
+    <Compile Include="Models\Model.cs" />
     <Compile Include="Samples\AdvancedSample\AdvancedDelete.cs" />
     <Compile Include="Samples\AdvancedSample\AdvancedEdit.cs" />
     <Compile Include="Samples\AdvancedSample\AdvancedAdd.cs" />
