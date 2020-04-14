@@ -13,7 +13,7 @@ using WebsiteTemplate.Menus.ViewItems.CoreItems;
 
 namespace QBicSamples.BackEnd.Cars
 {
-    public class ViewManufacturers : CoreView<CarEdition>
+    public class ViewManufacturers : CoreView<Manufacturer>
     {
         public ViewManufacturers(DataService dataService) : base(dataService)
         {
@@ -33,20 +33,20 @@ namespace QBicSamples.BackEnd.Cars
             columnConfig.AddButtonColumn("", "Id", "X", new UserConfirmation("Delete manufacturer?", MenuNumber.DeleteManufacturer));
         }
 
-        public override IEnumerable TransformData(IList<CarEdition> data)
+        public override IEnumerable TransformData(IList<Manufacturer> data)
         {
             return data.Select(x => new
             {
                 x.Id,
-                x.EditionName,
+                x.Name,
             }).ToList();
         }
 
-        public override List<Expression<Func<CarEdition, object>>> GetFilterItems()
+        public override List<Expression<Func<Manufacturer, object>>> GetFilterItems()
         {
-            return new List<Expression<Func<CarEdition, object>>>()
+            return new List<Expression<Func<Manufacturer, object>>>()
             {
-                x => x.EditionName
+                x => x.Name
             };
         }
 

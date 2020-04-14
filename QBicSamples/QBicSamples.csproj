@@ -237,8 +237,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackEnd\Cars\AddManufacturer.cs" />
     <Compile Include="BackEnd\Cars\DeleteEdition.cs" />
     <Compile Include="BackEnd\Cars\EditEdition.cs" />
+    <Compile Include="BackEnd\Cars\ModifyManufacturer.cs" />
     <Compile Include="BackEnd\Cars\ViewEditions.cs" />
     <Compile Include="BackEnd\Cars\ViewManufacturers.cs" />
     <Compile Include="BackEnd\Cars\ViewModels.cs" />

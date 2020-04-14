@@ -19,7 +19,7 @@ namespace QBicSamples.SiteSpecific
 
         public override string GetApplicationName()
         {
-            return "Invoices";
+            return "Cars";
         }
     }
 }

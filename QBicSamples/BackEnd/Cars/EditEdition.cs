@@ -17,7 +17,7 @@ namespace QBicSamples.BackEnd.Cars
     {
         public override bool AllowInMenu => true;
 
-        public override string Description => "Edit Edition";
+        public override string Description => "Edit Car Edition";
 
 
         public override EventNumber GetId()
