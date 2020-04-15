@@ -21,11 +21,13 @@ namespace QBicSamples.BackEnd.Models
     {
         private DataService DataService { get; set; }
         private string ManufacturerId { get; set; }
+
+        private string ManufacturerName { get; set; }
         public ViewModels(DataService dataService)
         {
             DataService = dataService;
         }
-        public override string Description => "View Models";
+        public override string Description => ManufacturerName + " Models";
         public override void ConfigureColumns(ColumnConfiguration columnConfig)
         {
             columnConfig.AddStringColumn("Name", "Name");
@@ -70,6 +72,7 @@ namespace QBicSamples.BackEnd.Models
         public IQueryOver<Model> CreateQuery(ISession session, GetDataSettings settings)
         {
             ManufacturerId = GetParameter("Id", settings);
+            ManufacturerName = GetParameter("Name", settings);
             var query = session.QueryOver<Model>()
                                .Where(x => x.ManufacturerId == ManufacturerId)
                                .OrderBy(x => x.Name).Asc;
