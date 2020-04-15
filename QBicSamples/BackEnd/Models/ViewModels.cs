@@ -15,7 +15,7 @@ using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.ViewItems;
 using WebsiteTemplate.Utilities;
 
-namespace QBicSamples.BackEnd.Cars
+namespace QBicSamples.BackEnd.Models
 {
     public class ViewModels : ShowView
     {
@@ -43,29 +43,22 @@ namespace QBicSamples.BackEnd.Cars
             {
                 var data = CreateQuery(session, settings).Skip((settings.CurrentPage - 1) * settings.LinesPerPage)
                                                    .Take(settings.LinesPerPage)
-                                                   .List<int>()
+                                                   .List<Model>()
                                                    .ToList();
                 var results = TransformData(data);
                 return results;
-                //return data;
             }
         }
-        public IEnumerable TransformData(IList<int> data)
+        public IEnumerable TransformData(IList<Model> data)
         {
-
-
-            var results = new List<object>();
-            using (var session = DataService.OpenSession())
+            return data.Select(x => new
             {
-                results = data.Select(d => (object)new
-                {
-                    
-                }).ToList();
-            }
-
-
-            return results;
+                x.Id,
+                x.ManufacturerId,
+                x.Name,
+            }).ToList();
         }
+
         public override int GetDataCount(GetDataSettings settings)
         {
             using (var session = DataService.OpenSession())
@@ -78,7 +71,7 @@ namespace QBicSamples.BackEnd.Cars
         {
             ManufacturerId = GetParameter("Id", settings);
             var query = session.QueryOver<Model>()
-                               .Where(x => x.Id == ManufacturerId)
+                               .Where(x => x.ManufacturerId == ManufacturerId)
                                .OrderBy(x => x.Name).Asc;
                                
             return query;
@@ -104,6 +97,7 @@ namespace QBicSamples.BackEnd.Cars
             return new List<MenuItem>()
             {
                 new MenuItem("Back", MenuNumber.ViewManufacturers, dataForMenu["Data"]),
+                new MenuItem("Add", MenuNumber.AddModel, dataForMenu["Data"])
             };
         }
 

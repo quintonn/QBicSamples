@@ -2,7 +2,7 @@
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus.BaseItems;
 
-namespace QBicSamples.BackEnd.Cars
+namespace QBicSamples.BackEnd.Manufacturers
 {
     public class AddManufacturer : ModifyManufacturer
     {

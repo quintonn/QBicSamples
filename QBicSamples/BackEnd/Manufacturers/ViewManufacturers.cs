@@ -11,12 +11,13 @@ using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.ViewItems;
 using WebsiteTemplate.Menus.ViewItems.CoreItems;
 
-namespace QBicSamples.BackEnd.Cars
+namespace QBicSamples.BackEnd.Manufacturers
 {
     public class ViewManufacturers : CoreView<Manufacturer>
     {
         public ViewManufacturers(DataService dataService) : base(dataService)
         {
+           
         }
 
         public override bool AllowInMenu => true;

@@ -237,13 +237,15 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackEnd\Cars\AddManufacturer.cs" />
-    <Compile Include="BackEnd\Cars\DeleteEdition.cs" />
-    <Compile Include="BackEnd\Cars\EditEdition.cs" />
-    <Compile Include="BackEnd\Cars\ModifyManufacturer.cs" />
-    <Compile Include="BackEnd\Cars\ViewEditions.cs" />
-    <Compile Include="BackEnd\Cars\ViewManufacturers.cs" />
-    <Compile Include="BackEnd\Cars\ViewModels.cs" />
+    <Compile Include="BackEnd\Manufacturers\AddManufacturer.cs" />
+    <Compile Include="BackEnd\CarEditions\DeleteEdition.cs" />
+    <Compile Include="BackEnd\CarEditions\EditEdition.cs" />
+    <Compile Include="BackEnd\Manufacturers\ModifyManufacturer.cs" />
+    <Compile Include="BackEnd\CarEditions\ViewEditions.cs" />
+    <Compile Include="BackEnd\Manufacturers\ViewManufacturers.cs" />
+    <Compile Include="BackEnd\Models\AddModel.cs" />
+    <Compile Include="BackEnd\Models\ModifyModel.cs" />
+    <Compile Include="BackEnd\Models\ViewModels.cs" />
     <Compile Include="Models\CarEdition.cs" />
     <Compile Include="Models\Manufacturer.cs" />
     <Compile Include="Models\Model.cs" />

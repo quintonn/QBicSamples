@@ -11,7 +11,7 @@ using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.InputItems;
 using WebsiteTemplate.Menus.ViewItems.CoreItems;
 
-namespace QBicSamples.BackEnd.Cars
+namespace QBicSamples.BackEnd.Manufacturers
 {
     public abstract class ModifyManufacturer : CoreModify<Manufacturer>
     {
@@ -40,8 +40,6 @@ namespace QBicSamples.BackEnd.Cars
             var name = GetValue("Name");
 
             Manufacturer manufacturer;
-
-            
 
             using (var session = DataService.OpenSession())
             {
