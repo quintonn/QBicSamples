@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using WebsiteTemplate.Backend.Services;
+using WebsiteTemplate.Menus;
 using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.InputItems;
 using WebsiteTemplate.Menus.ViewItems.CoreItems;
@@ -34,28 +35,34 @@ namespace QBicSamples.BackEnd.Cars
             return result;
         }
 
-        public override async Task<IList<IEvent>> PerformModify(bool isNew, string id, ISession session)
+        public override async Task<IList<IEvent>> PerformModify(bool isNew, string id, ISession session1)
         {
             var name = GetValue("Name");
 
             Manufacturer manufacturer;
 
-            if (IsNew)
+            
+
+            using (var session = DataService.OpenSession())
             {
-                manufacturer = new Manufacturer();
-            }
-            else
-            {
-                manufacturer = session.Get<Manufacturer>(id);
+                if (isNew)
+                {
+                    manufacturer = new Manufacturer();
+                }
+                else
+                {
+                    manufacturer = session.Get<Manufacturer>(id);
+                }
+
+                manufacturer.Name = name;
+                DataService.SaveOrUpdate(session, manufacturer);
+                session.Flush();
             }
 
-            manufacturer.Name = name;
-     
-            DataService.SaveOrUpdate(session, manufacturer);
-        
             return new List<IEvent>()
                 {
-                    new CancelInputDialog()
+                    new CancelInputDialog(),
+                    new ExecuteAction(MenuNumber.ViewManufacturers)
                 };
         }
     }

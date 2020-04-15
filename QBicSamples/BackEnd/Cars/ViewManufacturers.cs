@@ -25,8 +25,9 @@ namespace QBicSamples.BackEnd.Cars
 
         public override void ConfigureColumns(ColumnConfiguration columnConfig)
         {
-            columnConfig.AddStringColumn("Id", "Id");
             columnConfig.AddStringColumn("Name", "Name");
+
+            columnConfig.AddLinkColumn("", "Id", "Details", MenuNumber.ViewModels);
 
             columnConfig.AddLinkColumn("", "Id", "Edit", MenuNumber.EditManufacturer);
 
