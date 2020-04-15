@@ -2,6 +2,8 @@
 
 namespace QBicSamples.Models
 {
+    // rename to VehicleModel please
+
     // this is a model edition class
     public class Model : DynamicClass
     {

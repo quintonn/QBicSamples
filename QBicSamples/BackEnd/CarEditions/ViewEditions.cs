@@ -16,11 +16,14 @@ using WebsiteTemplate.Utilities;
 
 namespace QBicSamples.BackEnd.Cars
 {
+    // Why did you put these comments here?
+    // Please don't just copy/paste code from other places, you will not learn that way.
+
     /// <summary>
     /// This is the more advanced way to create a screen view.
     /// More code is required but you have full control on the columns and data being shown.
     /// </summary>
-    public class ViewEditions : ShowView
+    public class ViewEditions : ShowView // Is there a reason you are using ShowView instead of CoreView here?
     {
         private DataService DataService { get; set; }
         private string ManufacturerId { get; set; }
@@ -38,6 +41,7 @@ namespace QBicSamples.BackEnd.Cars
 
         public override void ConfigureColumns(ColumnConfiguration columnConfig)
         {
+            // remove blank lines
             columnConfig.AddStringColumn("Name", "EditionName");
             columnConfig.AddStringColumn("Year", "EditionYear");
             columnConfig.AddStringColumn("Price", "EditionPrice");
@@ -59,6 +63,7 @@ namespace QBicSamples.BackEnd.Cars
             }
         }
 
+        // you don't need this method if you are not changing the data you return
         public IEnumerable TransformData(IList<CarEdition> data)
         {
             var results = new List<object>();

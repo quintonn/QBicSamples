@@ -3,9 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+// remove unused usings. There is a right click option for that: Right Click -> Remove and Sort Usings
 namespace QBicSamples.Models
 {
+    // if your comment is just naming the class, it is not needed. only add comments if they add information that is not obvious.
+
+    // Also, please move the model class for the entire project so they are together. 
+    // your models are fine, but move the Samples models into this same folder.
+    // The project is already a samples project so we don't need "Samples" folders anymore.
+    // Same for the Samples folder, the content can go into BackEnd with your other code.
+
     // this is a car edition class
     public class CarEdition : DynamicClass
     {

@@ -1,5 +1,5 @@
 ﻿using NHibernate;
-using NHibernate.Criterion;
+using NHibernate.Criterion; // remove usings that are not used
 using NHibernate.Transform;
 using QBicSamples.Models;
 using QBicSamples.SiteSpecific;
@@ -17,7 +17,7 @@ using WebsiteTemplate.Utilities;
 
 namespace QBicSamples.BackEnd.Models
 {
-    public class ViewModels : ShowView
+    public class ViewModels : ShowView // any reason you are not using coreview?
     {
         private DataService DataService { get; set; }
         private string ManufacturerId { get; set; }
@@ -51,6 +51,8 @@ namespace QBicSamples.BackEnd.Models
                 return results;
             }
         }
+
+        // you don't need this method if you are not actually doing a transformation. you are just returning the same data you got.
         public IEnumerable TransformData(IList<Model> data)
         {
             return data.Select(x => new

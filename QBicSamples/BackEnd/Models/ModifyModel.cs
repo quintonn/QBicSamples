@@ -21,6 +21,8 @@ namespace QBicSamples.BackEnd.Models
         {
         }
 
+        // put all the properties and fields above the constructor, and then all the functions below.
+        // try use the same coding style
         public override string EntityName => "Model";
 
         public override EventNumber GetViewNumber()
@@ -33,6 +35,13 @@ namespace QBicSamples.BackEnd.Models
             var result = new List<InputField>();
 
             result.Add(new StringInput("Name", "Name", Item?.Name, null, true));
+            // You should add ManufacturerId as a hidden input here
+            // why?
+
+            // Becuase this method and the initialize method is called when the screen is created.
+            // but there is a lot of time until the user clicks the submit button on the screen.
+            // If someone opens another screen, the ManufacturerId will change.
+            // This is sort of a bug in the system, and that is why you should save the manufacturerid in a hidden input
 
             return result;
         }
@@ -53,7 +62,7 @@ namespace QBicSamples.BackEnd.Models
             
             Model model;
 
-            using (var session = DataService.OpenSession())
+            using (var session = DataService.OpenSession()) // don't create a new session.
              {
             if (isNew)
             {
@@ -65,12 +74,13 @@ namespace QBicSamples.BackEnd.Models
             }
 
             model.Name = name;
-            model.ManufacturerId = ManufacturerId;
+            model.ManufacturerId = ManufacturerId; // ManufacturerId should be retrieved from the hiddenInput
 
             DataService.SaveOrUpdate(session, model);
-               session.Flush();
+               session.Flush(); // don't call session.flush. When you inherit from CoreModify this is done for you
               }
 
+            // just return null
             return new List<IEvent>()
                 {
                     new CancelInputDialog(),

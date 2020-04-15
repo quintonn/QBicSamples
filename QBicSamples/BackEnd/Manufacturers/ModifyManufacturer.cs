@@ -1,9 +1,7 @@
 ﻿using NHibernate;
 using QBicSamples.Models;
 using QBicSamples.SiteSpecific;
-using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus;
@@ -41,6 +39,8 @@ namespace QBicSamples.BackEnd.Manufacturers
 
             Manufacturer manufacturer;
 
+            // you don't need to create a new session here, you are already being given one in the parameters of this function
+            // That is what CoreModify does for you, it creates the session so you don't have to re-do it 
             using (var session = DataService.OpenSession())
             {
                 if (isNew)
@@ -54,9 +54,12 @@ namespace QBicSamples.BackEnd.Manufacturers
 
                 manufacturer.Name = name;
                 DataService.SaveOrUpdate(session, manufacturer);
-                session.Flush();
+                session.Flush(); // you also don't need to call flush. it is being done by CoreModify
             }
 
+
+            // This is also done in CoreModify. You only need to return null if everything is fine.
+            // If not, you should return ErrorMessage("Error message")            
             return new List<IEvent>()
                 {
                     new CancelInputDialog(),

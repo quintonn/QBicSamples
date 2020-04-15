@@ -13,6 +13,9 @@ using WebsiteTemplate.Utilities;
 
 namespace QBicSamples.BackEnd.Cars
 {
+    // Why are you using GetInput instead of CoreModify?
+
+    // Also you should have a modify class, and then edit and add classes inherit from that
     public class EditEdition : GetInput
     {
         public override bool AllowInMenu => true;
