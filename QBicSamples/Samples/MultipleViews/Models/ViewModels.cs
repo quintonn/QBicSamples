@@ -22,13 +22,12 @@ namespace QBicSamples.Samples.MultipleViews.Models
     public class ViewModels : CoreView<Model>
     {
         private string ManufacturerId { get; set; }
-        private string ManufacturerName { get; set; }
         public ViewModels(DataService dataService): base(dataService)
         {
             
         }
         public override bool AllowInMenu => false;
-        public override string Description => ManufacturerName + " Models";
+        public override string Description => "Models";
         public override void ConfigureColumns(ColumnConfiguration columnConfig)
         {
             columnConfig.AddStringColumn("Name", "Name");
@@ -58,7 +57,7 @@ namespace QBicSamples.Samples.MultipleViews.Models
         {
             return new List<Expression<Func<Model, object>>>()
             {
-                x => x.Name
+                x => x.Name,
             };
         }
         public override IEnumerable TransformData(IList<Model> data)
@@ -73,7 +72,6 @@ namespace QBicSamples.Samples.MultipleViews.Models
         public IQueryOver<Model> CreateQuery(ISession session, GetDataSettings settings)
         {
             ManufacturerId = GetParameter("Id", settings);
-            ManufacturerName = GetParameter("Name", settings);
             var query = session.QueryOver<Model>()
                                .Where(x => x.ManufacturerId == ManufacturerId)
                                .OrderBy(x => x.Name).Asc;
@@ -86,8 +84,7 @@ namespace QBicSamples.Samples.MultipleViews.Models
             {
                 var data = new
                 {
-                    Id = ManufacturerId,
-                    Name = ManufacturerName
+                    CarManufacturerId = ManufacturerId,
                 };
 
                 return new Dictionary<string, string>()

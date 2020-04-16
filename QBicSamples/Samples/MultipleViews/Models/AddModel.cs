@@ -15,7 +15,7 @@ using WebsiteTemplate.Utilities;
 
 namespace QBicSamples.Samples.MultipleViews.Models
 {
-    public abstract class AddModel : GetInput
+    public class AddModel : GetInput
     {
         private DataService DataService { get; set; }
         public override bool AllowInMenu => false;
@@ -32,14 +32,15 @@ namespace QBicSamples.Samples.MultipleViews.Models
         }
         private string modelId;
 
-        private string ManufacturerId;
+        private string manufacturerId;
+
+        private string manufacturerName;
 
         public override IList<InputField> GetInputFields()
         {
             var result = new List<InputField>();
 
             result.Add(new StringInput("Name", "Name", null, null, true));
-
             return result;
         }
         public override async Task<InitializeResult> Initialize(string data)
@@ -48,13 +49,21 @@ namespace QBicSamples.Samples.MultipleViews.Models
             {
                 var json = JsonHelper.Parse(data);
                 modelId = json.GetValue("Id");
-                ManufacturerId = json.GetValue("ManufacturerID");
+                if (modelId == "")
+                {
+                    manufacturerId = json.GetValue("CarManufacturerId");
+                }
+                else
+                {
+                    manufacturerId = json.GetValue("ManufacturerId");
+                }
             }
 
             return new InitializeResult(true);
         }
         public override async Task<IList<IEvent>> ProcessAction(int actionNumber)
         {
+            
             if (actionNumber == 1)
             {
                 return new List<IEvent>()
@@ -64,22 +73,20 @@ namespace QBicSamples.Samples.MultipleViews.Models
             }
             else if (actionNumber == 0)
             {
-                modelId = GetValue("Id");
-                ManufacturerId = GetValue("ManufacturerID");
                 var name = GetValue("Name");
                 using (var session = DataService.OpenSession())
                 {
                     var models = session.QueryOver<Model>()
-                                            .Where(x => x.ManufacturerId == ManufacturerId)
+                                            .Where(x => x.ManufacturerId == manufacturerId)
                                             .List()
                                             .ToList();
-
-
+                     
                     var dbItem = models.Where(x => x.Id == modelId).SingleOrDefault();
                     if (dbItem == null)
                     {
                         dbItem = new Model();
                         dbItem.Name = name;
+                        dbItem.ManufacturerId = manufacturerId;
                     }
                     else
                     {
@@ -89,12 +96,11 @@ namespace QBicSamples.Samples.MultipleViews.Models
                     DataService.SaveOrUpdate(session, dbItem); // Using saveOrUpdate adds this task to audit log
                     session.Flush();
                 }
-
                 var data = new
                 {
                     data = new
                     {
-                        Id = ManufacturerId,
+                        Id = manufacturerId,
                     }
                 };
                 var json = JsonHelper.SerializeObject(data);
