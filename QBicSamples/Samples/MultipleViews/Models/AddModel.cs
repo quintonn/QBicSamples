@@ -30,6 +30,8 @@ namespace QBicSamples.Samples.MultipleViews.Models
         {
             return MenuNumber.AddModel;
         }
+        private Model Model;
+
         private string modelId;
 
         private string manufacturerId;
@@ -40,7 +42,7 @@ namespace QBicSamples.Samples.MultipleViews.Models
         {
             var result = new List<InputField>();
 
-            result.Add(new StringInput("Name", "Name", null, null, true));
+            result.Add(new StringInput("Name", "Name", Model?.Name, null, true));
             return result;
         }
         public override async Task<InitializeResult> Initialize(string data)
@@ -52,10 +54,13 @@ namespace QBicSamples.Samples.MultipleViews.Models
                 if (modelId == "")
                 {
                     manufacturerId = json.GetValue("CarManufacturerId");
+                    Model = new Model();
                 }
                 else
                 {
                     manufacturerId = json.GetValue("ManufacturerId");
+                    Model = session.Get<Model>(modelId);
+                    
                 }
             }
 
