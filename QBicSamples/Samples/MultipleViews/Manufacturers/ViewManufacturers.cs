@@ -25,6 +25,7 @@ namespace QBicSamples.Samples.MultipleViews.Manufacturers
 
         public override void ConfigureColumns(ColumnConfiguration columnConfig)
         {
+            // Delete these blank lines in between calls to columnConfig
             columnConfig.AddStringColumn("Name", "Name");
 
             columnConfig.AddLinkColumn("", "Id", "Details", MenuNumber.ViewModels);
@@ -34,6 +35,8 @@ namespace QBicSamples.Samples.MultipleViews.Manufacturers
             columnConfig.AddButtonColumn("", "Id", "X", new UserConfirmation("Delete manufacturer?", MenuNumber.DeleteManufacturer));
         }
 
+        // You don't need to implement this function at all. 
+        // these fields will be returned already
         public override IEnumerable TransformData(IList<Manufacturer> data)
         {
             return data.Select(x => new
