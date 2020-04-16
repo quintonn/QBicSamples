@@ -8,33 +8,35 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus;
 using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.ViewItems;
+using WebsiteTemplate.Menus.ViewItems.CoreItems;
 using WebsiteTemplate.Utilities;
 
-namespace QBicSamples.BackEnd.Models
+namespace QBicSamples.Samples.MultipleViews.Models
 {
-    public class ViewModels : ShowView
+    public class ViewModels : CoreView<Model>
     {
-        private DataService DataService { get; set; }
         private string ManufacturerId { get; set; }
-
         private string ManufacturerName { get; set; }
-        public ViewModels(DataService dataService)
+        public ViewModels(DataService dataService): base(dataService)
         {
-            DataService = dataService;
+            
         }
+        public override bool AllowInMenu => false;
         public override string Description => ManufacturerName + " Models";
         public override void ConfigureColumns(ColumnConfiguration columnConfig)
         {
             columnConfig.AddStringColumn("Name", "Name");
 
             columnConfig.AddLinkColumn("", "Id", "Details", MenuNumber.ViewEditions);
+
+            columnConfig.AddLinkColumn("", "Id", "Edit", MenuNumber.AddModel);
         }
-        public override bool AllowInMenu => false;
         public override EventNumber GetId()
         {
             return MenuNumber.ViewModels;
@@ -51,7 +53,15 @@ namespace QBicSamples.BackEnd.Models
                 return results;
             }
         }
-        public IEnumerable TransformData(IList<Model> data)
+
+        public override List<Expression<Func<Model, object>>> GetFilterItems()
+        {
+            return new List<Expression<Func<Model, object>>>()
+            {
+                x => x.Name
+            };
+        }
+        public override IEnumerable TransformData(IList<Model> data)
         {
             return data.Select(x => new
             {
@@ -59,15 +69,6 @@ namespace QBicSamples.BackEnd.Models
                 x.ManufacturerId,
                 x.Name,
             }).ToList();
-        }
-
-        public override int GetDataCount(GetDataSettings settings)
-        {
-            using (var session = DataService.OpenSession())
-            {
-                var result = CreateQuery(session, settings).RowCount();
-                return result;
-            }
         }
         public IQueryOver<Model> CreateQuery(ISession session, GetDataSettings settings)
         {
@@ -85,7 +86,8 @@ namespace QBicSamples.BackEnd.Models
             {
                 var data = new
                 {
-                    Id = ManufacturerId
+                    Id = ManufacturerId,
+                    Name = ManufacturerName
                 };
 
                 return new Dictionary<string, string>()
@@ -103,6 +105,5 @@ namespace QBicSamples.BackEnd.Models
                 new MenuItem("Add", MenuNumber.AddModel, dataForMenu["Data"])
             };
         }
-
     }
 }

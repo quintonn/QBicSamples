@@ -14,7 +14,7 @@ using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.ViewItems;
 using WebsiteTemplate.Utilities;
 
-namespace QBicSamples.BackEnd.Cars
+namespace QBicSamples.BackEnd.CarEditions
 {
     /// <summary>
     /// This is the more advanced way to create a screen view.

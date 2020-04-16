@@ -2,7 +2,7 @@
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus.BaseItems;
 
-namespace QBicSamples.BackEnd.Manufacturers
+namespace QBicSamples.Samples.MultipleViews.Manufacturers
 {
     public class AddManufacturer : ModifyManufacturer
     {

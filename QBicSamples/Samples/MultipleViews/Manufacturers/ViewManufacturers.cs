@@ -11,7 +11,7 @@ using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.ViewItems;
 using WebsiteTemplate.Menus.ViewItems.CoreItems;
 
-namespace QBicSamples.BackEnd.Manufacturers
+namespace QBicSamples.Samples.MultipleViews.Manufacturers
 {
     public class ViewManufacturers : CoreView<Manufacturer>
     {
@@ -19,7 +19,6 @@ namespace QBicSamples.BackEnd.Manufacturers
         {
            
         }
-
         public override bool AllowInMenu => true;
 
         public override string Description => "View Manufacturers";

@@ -11,7 +11,7 @@ using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.InputItems;
 using WebsiteTemplate.Menus.ViewItems.CoreItems;
 
-namespace QBicSamples.BackEnd.Manufacturers
+namespace QBicSamples.Samples.MultipleViews.Manufacturers
 {
     public abstract class ModifyManufacturer : CoreModify<Manufacturer>
     {
@@ -35,33 +35,33 @@ namespace QBicSamples.BackEnd.Manufacturers
             return result;
         }
 
-        public override async Task<IList<IEvent>> PerformModify(bool isNew, string id, ISession session1)
+        public override async Task<IList<IEvent>> PerformModify(bool isNew, string id, ISession session)
         {
             var name = GetValue("Name");
 
             Manufacturer manufacturer;
 
-            using (var session = DataService.OpenSession())
-            {
-                if (isNew)
-                {
-                    manufacturer = new Manufacturer();
-                }
-                else
-                {
-                    manufacturer = session.Get<Manufacturer>(id);
-                }
+            if (isNew)
 
-                manufacturer.Name = name;
-                DataService.SaveOrUpdate(session, manufacturer);
-                session.Flush();
+            {
+
+                manufacturer = new Manufacturer();
+
             }
 
-            return new List<IEvent>()
-                {
-                    new CancelInputDialog(),
-                    new ExecuteAction(MenuNumber.ViewManufacturers)
-                };
+            else
+
+            {
+
+                manufacturer = session.Get<Manufacturer>(id);
+
+            }
+
+            manufacturer.Name = name;
+
+            DataService.SaveOrUpdate(session, manufacturer);
+
+            return null;
         }
     }
 }
