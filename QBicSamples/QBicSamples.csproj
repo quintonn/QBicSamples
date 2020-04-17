@@ -240,6 +240,8 @@
     <Compile Include="Samples\MultipleViews\Manufacturers\AddManufacturer.cs" />
     <Compile Include="Samples\MultipleViews\CarEditions\DeleteEdition.cs" />
     <Compile Include="Samples\MultipleViews\CarEditions\EditEdition.cs" />
+    <Compile Include="Samples\MultipleViews\Manufacturers\DeleteManufacturer.cs" />
+    <Compile Include="Samples\MultipleViews\Manufacturers\EditManufacturer.cs" />
     <Compile Include="Samples\MultipleViews\Manufacturers\ModifyManufacturer.cs" />
     <Compile Include="Samples\MultipleViews\CarEditions\ViewEditions.cs" />
     <Compile Include="Samples\MultipleViews\Manufacturers\ViewManufacturers.cs" />

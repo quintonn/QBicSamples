@@ -21,7 +21,7 @@ namespace QBicSamples.Samples.MultipleViews.Manufacturers
         }
         public override bool AllowInMenu => true;
 
-        public override string Description => "View Manufacturers";
+        public override string Description => "Manufacturers View";
 
         public override void ConfigureColumns(ColumnConfiguration columnConfig)
         {
@@ -34,18 +34,6 @@ namespace QBicSamples.Samples.MultipleViews.Manufacturers
 
             columnConfig.AddButtonColumn("", "Id", "X", new UserConfirmation("Delete manufacturer?", MenuNumber.DeleteManufacturer));
         }
-
-        // You don't need to implement this function at all. 
-        // these fields will be returned already
-        public override IEnumerable TransformData(IList<Manufacturer> data)
-        {
-            return data.Select(x => new
-            {
-                x.Id,
-                x.Name,
-            }).ToList();
-        }
-
         public override List<Expression<Func<Manufacturer, object>>> GetFilterItems()
         {
             return new List<Expression<Func<Manufacturer, object>>>()
