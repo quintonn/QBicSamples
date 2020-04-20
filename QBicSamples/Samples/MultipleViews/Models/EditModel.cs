@@ -4,15 +4,15 @@ using WebsiteTemplate.Menus.BaseItems;
 
 namespace QBicSamples.Samples.MultipleViews.Models
 {
-    public class AddModel : ModifyModel
+    public class EditModel : ModifyModel
     {
-        public AddModel(DataService dataService) : base(dataService, true)
+        public EditModel(DataService dataService) : base(dataService, false)
         {
         }
 
         public override EventNumber GetId()
         {
-            return MenuNumber.AddModel;
+            return MenuNumber.EditModel;
         }
     }
 }

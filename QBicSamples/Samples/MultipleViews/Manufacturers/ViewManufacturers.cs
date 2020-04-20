@@ -28,7 +28,7 @@ namespace QBicSamples.Samples.MultipleViews.Manufacturers
             // Delete these blank lines in between calls to columnConfig
             columnConfig.AddStringColumn("Name", "Name");
 
-            columnConfig.AddLinkColumn("", "Id", "Details", MenuNumber.ViewModels);
+            columnConfig.AddLinkColumn("", "Id", "Models", MenuNumber.ViewModels);
 
             columnConfig.AddLinkColumn("", "Id", "Edit", MenuNumber.EditManufacturer);
 

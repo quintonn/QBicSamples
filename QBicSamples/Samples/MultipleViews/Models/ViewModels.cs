@@ -19,22 +19,28 @@ using WebsiteTemplate.Utilities;
 
 namespace QBicSamples.Samples.MultipleViews.Models
 {
-    public class ViewModels : CoreView<Model>
+    public class ViewModels : ShowView
     {
         private string ManufacturerId { get; set; }
-        public ViewModels(DataService dataService): base(dataService)
+        private DataService DataService { get; set; }
+
+        public ViewModels(DataService dataService)
         {
-            
+            DataService = dataService;
         }
+
         public override bool AllowInMenu => false;
-        public override string Description => "Models";
+
+        public override string Description => "View Models"; 
         public override void ConfigureColumns(ColumnConfiguration columnConfig)
         {
             columnConfig.AddStringColumn("Name", "Name");
 
-            columnConfig.AddLinkColumn("", "Id", "Details", MenuNumber.ViewEditions);
+            columnConfig.AddLinkColumn("", "Id", "Editions", MenuNumber.ViewEditions);
 
-            columnConfig.AddLinkColumn("", "Id", "Edit", MenuNumber.AddModel);
+            columnConfig.AddLinkColumn("", "Id", "Edit", MenuNumber.EditModel);
+
+            columnConfig.AddButtonColumn("", "Id", "X", new UserConfirmation("Delete model?", MenuNumber.DeleteModel));
         }
         public override EventNumber GetId()
         {
@@ -44,30 +50,21 @@ namespace QBicSamples.Samples.MultipleViews.Models
         {
             using (var session = DataService.OpenSession())
             {
-                var data = CreateQuery(session, settings).Skip((settings.CurrentPage - 1) * settings.LinesPerPage)
+                var modelslist = CreateQuery(session, settings).Skip((settings.CurrentPage - 1) * settings.LinesPerPage)
                                                    .Take(settings.LinesPerPage)
                                                    .List<Model>()
                                                    .ToList();
-                var results = TransformData(data);
-                return results;
+                return modelslist;
             }
         }
 
-        public override List<Expression<Func<Model, object>>> GetFilterItems()
+        public override int GetDataCount(GetDataSettings settings)
         {
-            return new List<Expression<Func<Model, object>>>()
+            using (var session = DataService.OpenSession())
             {
-                x => x.Name,
-            };
-        }
-        public override IEnumerable TransformData(IList<Model> data)
-        {
-            return data.Select(x => new
-            {
-                x.Id,
-                x.ManufacturerId,
-                x.Name,
-            }).ToList();
+                var result = CreateQuery(session, settings).RowCount();
+                return result;
+            }
         }
         public IQueryOver<Model> CreateQuery(ISession session, GetDataSettings settings)
         {
@@ -84,7 +81,7 @@ namespace QBicSamples.Samples.MultipleViews.Models
             {
                 var data = new
                 {
-                    CarManufacturerId = ManufacturerId,
+                    ManufacturerId,
                 };
 
                 return new Dictionary<string, string>()
