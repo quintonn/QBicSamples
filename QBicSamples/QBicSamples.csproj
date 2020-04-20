@@ -255,7 +255,7 @@
     <Compile Include="Samples\MultipleViews\Models\ViewModels.cs" />
     <Compile Include="Models\Edition.cs" />
     <Compile Include="Models\Manufacturer.cs" />
-    <Compile Include="Models\Model.cs" />
+    <Compile Include="Models\VehicleModel.cs" />
     <Compile Include="Samples\AdvancedSample\AdvancedDelete.cs" />
     <Compile Include="Samples\AdvancedSample\AdvancedEdit.cs" />
     <Compile Include="Samples\AdvancedSample\AdvancedAdd.cs" />

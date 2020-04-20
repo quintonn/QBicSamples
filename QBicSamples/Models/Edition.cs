@@ -1,9 +1,5 @@
 ﻿using QBic.Core.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-// remove unused usings. There is a right click option for that: Right Click -> Remove and Sort Usings
 namespace QBicSamples.Models
 {
     // if your comment is just naming the class, it is not needed. only add comments if they add information that is not obvious.

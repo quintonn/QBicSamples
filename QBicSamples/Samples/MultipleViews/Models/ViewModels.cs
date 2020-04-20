@@ -1,20 +1,13 @@
 ﻿using NHibernate;
-using NHibernate.Criterion;
-using NHibernate.Transform;
 using QBicSamples.Models;
 using QBicSamples.SiteSpecific;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Web;
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus;
 using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.ViewItems;
-using WebsiteTemplate.Menus.ViewItems.CoreItems;
 using WebsiteTemplate.Utilities;
 
 namespace QBicSamples.Samples.MultipleViews.Models
@@ -52,7 +45,7 @@ namespace QBicSamples.Samples.MultipleViews.Models
             {
                 var modelslist = CreateQuery(session, settings).Skip((settings.CurrentPage - 1) * settings.LinesPerPage)
                                                    .Take(settings.LinesPerPage)
-                                                   .List<Model>()
+                                                   .List<VehicleModel>()
                                                    .ToList();
                 return modelslist;
             }
@@ -66,10 +59,10 @@ namespace QBicSamples.Samples.MultipleViews.Models
                 return result;
             }
         }
-        public IQueryOver<Model> CreateQuery(ISession session, GetDataSettings settings)
+        public IQueryOver<VehicleModel> CreateQuery(ISession session, GetDataSettings settings)
         {
             ManufacturerId = GetParameter("Id", settings);
-            var query = session.QueryOver<Model>()
+            var query = session.QueryOver<VehicleModel>()
                                .Where(x => x.ManufacturerId == ManufacturerId)
                                .OrderBy(x => x.Name).Asc;
                                

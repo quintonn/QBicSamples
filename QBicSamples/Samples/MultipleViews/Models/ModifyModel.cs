@@ -1,16 +1,12 @@
-﻿using NHibernate;
-using QBicSamples.Models;
+﻿using QBicSamples.Models;
 using QBicSamples.SiteSpecific;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus;
 using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.InputItems;
-using WebsiteTemplate.Menus.ViewItems.CoreItems;
 using WebsiteTemplate.Utilities;
 
 namespace QBicSamples.Samples.MultipleViews.Models
@@ -28,7 +24,7 @@ namespace QBicSamples.Samples.MultipleViews.Models
             IsNew = isNew;
         }
 
-        private Model Model { get; set; }
+        private VehicleModel Model { get; set; }
 
         private DataService DataService { get; set; }
 
@@ -46,14 +42,14 @@ namespace QBicSamples.Samples.MultipleViews.Models
             IsNew = String.IsNullOrWhiteSpace(ModelId);
             if (IsNew)
             {
-                Model = new Model();
+                Model = new VehicleModel();
                 Model.ManufacturerId = ManufacturerId;
             }
             else
             {
                 using (var session = DataService.OpenSession())
                 {
-                    Model = session.Get<Model>(ModelId);
+                    Model = session.Get<VehicleModel>(ModelId);
                 }
             }
 
@@ -96,15 +92,15 @@ namespace QBicSamples.Samples.MultipleViews.Models
 
                 using (var session = DataService.OpenSession())
                 {
-                    Model dbItem;
+                    VehicleModel dbItem;
                     if (IsNew)
                     {
-                        dbItem = new Model();
+                        dbItem = new VehicleModel();
                         dbItem.ManufacturerId = manufacturerId;
                     }
                     else
                     {
-                        dbItem = session.Get<Model>(id);
+                        dbItem = session.Get<VehicleModel>(id);
                     }
 
                     if (!String.IsNullOrEmpty(name))

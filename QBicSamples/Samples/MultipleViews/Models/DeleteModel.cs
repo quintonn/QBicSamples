@@ -1,14 +1,10 @@
-﻿using QBicSamples.SiteSpecific;
-using QBicSamples.Models.Samples;
-using System;
+﻿using QBicSamples.Models;
+using QBicSamples.SiteSpecific;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus;
 using WebsiteTemplate.Menus.BaseItems;
-using QBicSamples.Models;
 using WebsiteTemplate.Utilities;
 
 namespace QBicSamples.BackEnd.MultipleViews.Models
@@ -37,7 +33,7 @@ namespace QBicSamples.BackEnd.MultipleViews.Models
             var id = GetValue("Id");
             using (var session = DataService.OpenSession())
             {
-                var model = session.Get<Model>(id);
+                var model = session.Get<VehicleModel>(id);
                 ManufacturerId = model.ManufacturerId;
 
                 DataService.TryDelete(session, model); // Do deletes this way to have it audited

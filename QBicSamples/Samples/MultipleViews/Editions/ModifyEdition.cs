@@ -1,16 +1,12 @@
-﻿using NHibernate;
-using QBicSamples.Models;
+﻿using QBicSamples.Models;
 using QBicSamples.SiteSpecific;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus;
 using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.InputItems;
-using WebsiteTemplate.Menus.ViewItems.CoreItems;
 using WebsiteTemplate.Utilities;
 
 namespace QBicSamples.Samples.MultipleViews.Editions
