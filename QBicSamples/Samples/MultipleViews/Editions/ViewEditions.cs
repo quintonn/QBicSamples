@@ -31,7 +31,16 @@ namespace QBicSamples.Samples.MultipleViews.Editions
 
             columnConfig.AddLinkColumn("", "Id", "Edit", MenuNumber.EditEdition);
 
+            columnConfig.AddButtonColumn("Details", "Id", "...", MenuNumber.DetailsEdition, new ShowHideColumnSetting()
+            {
+                Display = ColumnDisplayType.Hide,
+                Conditions = new List<Condition>()
+                {
+                    new Condition("Category", Comparison.Equals, "Special") // Can be used to hide buttons for certain types of data
+                }
+            });
             columnConfig.AddButtonColumn("", "Id", "X", new UserConfirmation("Delete edition?", MenuNumber.DeleteEdition));
+
         }
         public override EventNumber GetId()
         {

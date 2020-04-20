@@ -238,6 +238,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Samples\MultipleViews\Editions\AddEdition.cs" />
+    <Compile Include="Samples\MultipleViews\Editions\DetailsEdition.cs" />
     <Compile Include="Samples\MultipleViews\Editions\ModifyEdition.cs" />
     <Compile Include="Samples\MultipleViews\Manufacturers\AddManufacturer.cs" />
     <Compile Include="Samples\MultipleViews\Editions\DeleteEdition.cs" />
