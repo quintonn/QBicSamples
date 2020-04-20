@@ -40,8 +40,8 @@ namespace QBicSamples.Samples.MultipleViews.Models
         {
             var json = JsonHelper.Parse(data);
 
-            var ModelId = json.GetValue("Id");
-            var ManufacturerId = json.GetValue("ManufacturerId");
+            ModelId = json.GetValue("Id");
+            ManufacturerId = json.GetValue("ManufacturerId");
 
             IsNew = String.IsNullOrWhiteSpace(ModelId);
             if (IsNew)
@@ -119,12 +119,21 @@ namespace QBicSamples.Samples.MultipleViews.Models
                 }
 
 
+                var data = new
+                {
+                    data = new
+                    {
+                        Id = ManufacturerId  
+                    }
+                };
+                var json = JsonHelper.SerializeObject(data);
+
 
                 return new List<IEvent>()
                 {
                     new ShowMessage("Model successfully " + (IsNew ? "added" : "modified")),
                     new CancelInputDialog(),
-                    new ExecuteAction(MenuNumber.ViewModels)
+                    new ExecuteAction(MenuNumber.ViewModels, json)
                 };
             }
             else
