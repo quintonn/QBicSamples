@@ -237,20 +237,22 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Samples\MultipleViews\Editions\AddEdition.cs" />
+    <Compile Include="Samples\MultipleViews\Editions\ModifyEdition.cs" />
     <Compile Include="Samples\MultipleViews\Manufacturers\AddManufacturer.cs" />
-    <Compile Include="Samples\MultipleViews\CarEditions\DeleteEdition.cs" />
-    <Compile Include="Samples\MultipleViews\CarEditions\EditEdition.cs" />
+    <Compile Include="Samples\MultipleViews\Editions\DeleteEdition.cs" />
+    <Compile Include="Samples\MultipleViews\Editions\EditEdition.cs" />
     <Compile Include="Samples\MultipleViews\Manufacturers\DeleteManufacturer.cs" />
     <Compile Include="Samples\MultipleViews\Manufacturers\EditManufacturer.cs" />
     <Compile Include="Samples\MultipleViews\Manufacturers\ModifyManufacturer.cs" />
-    <Compile Include="Samples\MultipleViews\CarEditions\ViewEditions.cs" />
+    <Compile Include="Samples\MultipleViews\Editions\ViewEditions.cs" />
     <Compile Include="Samples\MultipleViews\Manufacturers\ViewManufacturers.cs" />
     <Compile Include="Samples\MultipleViews\Models\AddModel.cs" />
     <Compile Include="Samples\MultipleViews\Models\DeleteModel.cs" />
     <Compile Include="Samples\MultipleViews\Models\EditModel.cs" />
     <Compile Include="Samples\MultipleViews\Models\ModifyModel.cs" />
     <Compile Include="Samples\MultipleViews\Models\ViewModels.cs" />
-    <Compile Include="Models\CarEdition.cs" />
+    <Compile Include="Models\Edition.cs" />
     <Compile Include="Models\Manufacturer.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Samples\AdvancedSample\AdvancedDelete.cs" />

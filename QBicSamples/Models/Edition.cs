@@ -14,7 +14,7 @@ namespace QBicSamples.Models
     // Same for the Samples folder, the content can go into BackEnd with your other code.
 
     // this is a car edition class
-    public class CarEdition : DynamicClass
+    public class Edition : DynamicClass
     {
         public virtual string ManufacturerId { get; set; }
         public virtual string ModelId { get; set; }

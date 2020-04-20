@@ -21,7 +21,7 @@ namespace QBicSamples.Samples.MultipleViews.Manufacturers
         }
         public override bool AllowInMenu => true;
 
-        public override string Description => "Manufacturers View";
+        public override string Description => "View Manufacturers";
 
         public override void ConfigureColumns(ColumnConfiguration columnConfig)
         {

@@ -1,60 +1,51 @@
 ﻿using NHibernate;
-using NHibernate.Criterion;
-using NHibernate.Transform;
 using QBicSamples.Models;
 using QBicSamples.SiteSpecific;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Web;
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus;
 using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.ViewItems;
-using WebsiteTemplate.Menus.ViewItems.CoreItems;
 using WebsiteTemplate.Utilities;
 
-namespace QBicSamples.Samples.MultipleViews.Models
+namespace QBicSamples.Samples.MultipleViews.Editions
 {
-    public class ViewModels : ShowView
+    public class ViewEditions : ShowView
     {
         private string ManufacturerId { get; set; }
+        private string ModelId { get; set; }
         private DataService DataService { get; set; }
-
-        public ViewModels(DataService dataService)
+        public ViewEditions(DataService dataService)
         {
             DataService = dataService;
         }
 
         public override bool AllowInMenu => false;
 
-        public override string Description => "View Models"; 
+        public override string Description => "View Editions";
         public override void ConfigureColumns(ColumnConfiguration columnConfig)
         {
-            columnConfig.AddStringColumn("Name", "Name");
+            columnConfig.AddStringColumn("Name", "EditionName");
 
-            columnConfig.AddLinkColumn("", "Id", "Editions", MenuNumber.ViewEditions);
+            columnConfig.AddLinkColumn("", "Id", "Edit", MenuNumber.EditEdition);
 
-            columnConfig.AddLinkColumn("", "Id", "Edit", MenuNumber.EditModel);
-
-            columnConfig.AddButtonColumn("", "Id", "X", new UserConfirmation("Delete model?", MenuNumber.DeleteModel));
+            columnConfig.AddButtonColumn("", "Id", "X", new UserConfirmation("Delete edition?", MenuNumber.DeleteEdition));
         }
         public override EventNumber GetId()
         {
-            return MenuNumber.ViewModels;
+            return MenuNumber.ViewEditions;
         }
         public override IEnumerable GetData(GetDataSettings settings)
         {
             using (var session = DataService.OpenSession())
             {
-                var modelslist = CreateQuery(session, settings).Skip((settings.CurrentPage - 1) * settings.LinesPerPage)
+                var editionslist = CreateQuery(session, settings).Skip((settings.CurrentPage - 1) * settings.LinesPerPage)
                                                    .Take(settings.LinesPerPage)
-                                                   .List<Model>()
+                                                   .List<Edition>()
                                                    .ToList();
-                return modelslist;
+                return editionslist;
             }
         }
 
@@ -66,27 +57,35 @@ namespace QBicSamples.Samples.MultipleViews.Models
                 return result;
             }
         }
-        public IQueryOver<Model> CreateQuery(ISession session, GetDataSettings settings)
+        public IQueryOver<Edition> CreateQuery(ISession session, GetDataSettings settings)
         {
-            ManufacturerId = GetParameter("Id", settings);
-            var query = session.QueryOver<Model>()
-                               .Where(x => x.ManufacturerId == ManufacturerId)
-                               .OrderBy(x => x.Name).Asc;
-                               
+            ManufacturerId = GetParameter("ManufacturerId", settings);
+            ModelId = GetParameter("Id", settings);
+
+            var query = session.QueryOver<Edition>()
+                               .Where(x => x.ManufacturerId == ManufacturerId && x.ModelId == ModelId)
+                               .OrderBy(x => x.EditionName).Asc;
+
             return query;
         }
         public override Dictionary<string, string> DataForGettingMenu
         {
             get
             {
-                var data = new
+                var adddata = new
                 {
                     ManufacturerId,
+                    ModelId
+                };
+                var backdata = new
+                {
+                    Id = ManufacturerId
                 };
 
                 return new Dictionary<string, string>()
                 {
-                    { "Data", JsonHelper.SerializeObject(data) }
+                    { "AddData", JsonHelper.SerializeObject(adddata) },
+                    { "BackData", JsonHelper.SerializeObject(backdata)}
                 };
             }
         }
@@ -95,8 +94,8 @@ namespace QBicSamples.Samples.MultipleViews.Models
 
             return new List<MenuItem>()
             {
-                new MenuItem("Back", MenuNumber.ViewManufacturers),
-                new MenuItem("Add", MenuNumber.AddModel, dataForMenu["Data"])
+                new MenuItem("Back", MenuNumber.ViewModels, dataForMenu["BackData"]),
+                new MenuItem("Add", MenuNumber.AddEdition, dataForMenu["AddData"])
             };
         }
     }
