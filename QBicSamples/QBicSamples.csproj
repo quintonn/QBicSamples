@@ -269,8 +269,8 @@
     <Compile Include="Samples\BasicSample\SampleEdit.cs" />
     <Compile Include="Samples\BasicSample\SampleModify.cs" />
     <Compile Include="Samples\BasicSample\SampleView.cs" />
-    <Compile Include="Models\Samples\SampleCategory.cs" />
-    <Compile Include="Models\Samples\SampleModel.cs" />
+    <Compile Include="Models\SampleCategory.cs" />
+    <Compile Include="Models\SampleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SiteSpecific\AppSettings.cs" />
     <Compile Include="SiteSpecific\MenuNumber.cs" />
