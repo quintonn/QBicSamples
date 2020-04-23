@@ -8,7 +8,7 @@ Generally though, when adding CRUD functionality using QBic, one would start wit
 The different classes are explained in more detail below:
 
 ## AdvancedView
-AdvancedView.cs inherits from **ShowView**, which is the most primitive class to inherit from for a view screen.
+AdvancedView inherits from **ShowView**, which is the most primitive class to inherit from for a view screen.
 
 When creating a **ShowView** class, the following methods should generally be implemented:
 
@@ -43,7 +43,7 @@ If overridden, this adds buttons near the top of the view, and are only visible 
 An example of when this might be used is to create an "Add" button to add a new item, or a "Back" button, which can go back to a previously shown view.
 
 ## AdvancedModify
-AdvancedModify.cs inherits from **GetInput**, which is the most primitive class to inherit from for an input screen.
+AdvancedModify inherits from **GetInput**, which is the most primitive class to inherit from for an input screen.
 In most cases, adding or editing a new item is very similar to modifying an existing item, and it is usually easiest to create a common **abstract** class that is responsible for both adding and editing a record.
 The following methods should be implemented for a "GetInput" class
 
@@ -57,68 +57,64 @@ The value in this field is what is displayed when adding a menu, and is also the
 This is an optional override, and is called first when the add or edit (modify) action has been triggered.
 
 ### GetInputFields
+This returns the input fields that will added to the input screen.
 
 ### OnPropertyChanged
+This is an optional override, and is called for any input that has it's **RaisePropertyChangedEvent** value set to true, and will be called when the user modified that input.  
+This can be used to update input fields' visibility as well as update a combo box's contents based on inputs selected by a user.
 
 ### ProcessAction
+This is called when the user submits or cancels an input screen, or presses any other button on the input screen.  
+The button ID is passed to this function, and any input data can be obtained using the utility function **GetValue** or directly from the **InputData** field.
 
 ## AdvancedAdd
-AdvancedAdd.cs inherits from **AdvancedModify** that inherits from **GetInput**, which is the most primitive class to inherit from for an input screen.
-In most cases, adding a new item is very similar to modifying an existing item, and it is usually easiest to create a common **abstract** class that is responsible for both adding and editing a record.
-The following methods should be implemented for a "AdvancedModify" class
+AdvancedAdd inherits from **AdvancedModify**.  
+In order to specify that this instance of the **AdvancedModify** is used for adding, the following needs to be implemented:
 
-### AllowInMenu
-This has the same function as before, and is generally set to false, unless the input screen should be allowed to be initialized directly from the main menu, rather than from a view menu or view action.
+### Constructor
+The base contructor has a boolean value for **isNew** which indicates if this is for a new item or not, and in this case we pass **true**.
 
-### Description
-The value in this field is what is displayed when adding a menu, and is also the default Title of the view (which can be overridden also).
-
-### Initialize
-
-### GetInputFields
-
-### ProcessAction
+### GetId
+This is the unique identifier for this input screen.
 
 ## AdvancedEdit
-AdvancedEdit.cs inherits from **AdvancedModify** that inherits from **GetInput**, which is the most primitive class to inherit from for an input screen.
-In most cases, editing a new item is very similar to modifying an existing item, and it is usually easiest to create a common **abstract** class that is responsible for both adding and editing a record.
-The following methods should be implemented for a "AdvancedModify" class
+AdvancedEdit inherits from **AdvancedModify**.  
+In the same way we set different values for AdvancedAdd, we have to set values for AdvancedEdit, but this time we set values specific for a modify, or edit.
 
-### AllowInMenu
-This has the same function as before, and is generally set to false, unless the input screen should be allowed to be initialized directly from the main menu, rather than from a view menu or view action.
+### Constructor
+The base contructor has a boolean value for **isNew** which indicates if this is for a new item or not, and in this case we pass **false**.
 
-### Description
-The value in this field is what is displayed when adding a menu, and is also the default Title of the view (which can be overridden also).
-
-### Initialize
-
-### GetInputFields
-
-### ProcessAction
+### GetId
+This is the unique identifier for this input screen.
 
 ## AdvancedDetails
-AdvancedDetails.cs inherits from **DoSomething** that inherits from **InputProcessingEvent**, which is the most primitive class to inherit from for an input event.
-In most cases, adding a new item is very similar to modifying an existing item, and it is usually easiest to create a common **abstract** class that is responsible for both adding and editing a record.
-The following methods should be implemented for a "DoSomething" class
+AdvancedDetails inherits from **DoSomething**, which is the most primitive class to inherit in order to process a user action, which usually relates to a menu button click or clicking a link in a view, as in this case.  
 
 ### AllowInMenu
-This has the same function as before, and is generally set to false, unless the input screen should be allowed to be initialized directly from the main menu, rather than from a view menu or view action.
+This has the same function as before, and is generally set to false, unless the input screen should be allowed to be initialized directly from the main menu, rather than from a view menu or view action.  
+In this case it is set to false, as this view should only be shown from another screen.  
 
 ### Description
 The value in this field is what is displayed when adding a menu, and is also the default Title of the view (which can be overridden also).
 
+### GetId
+This is the unique identifier for this input screen.
+
 ### ProcessAction
+This code is invoked when the user invokes the button or action associated with the value returned by **GetId**.
 
 ## AdvancedDelete
-AdvancedDelete.cs inherits from **DoSomething** that inherits from **InputProcessingEvent**, which is the most primitive class to inherit from for an input event.
-In most cases, adding a new item is very similar to modifying an existing item, and it is usually easiest to create a common **abstract** class that is responsible for both adding and editing a record.
-The following methods should be implemented for a "DoSomething" class
+AdvancedDelete inherits from **DoSomething**, which is used to handle a user event typically.
 
 ### AllowInMenu
-This has the same function as before, and is generally set to false, unless the input screen should be allowed to be initialized directly from the main menu, rather than from a view menu or view action.
+This has the same function as before, and is generally set to false, unless the input screen should be allowed to be initialized directly from the main menu, rather than from a view menu or view action.  
+In this case it is set to false, as this view should only be shown from another screen.  
 
 ### Description
 The value in this field is what is displayed when adding a menu, and is also the default Title of the view (which can be overridden also).
 
-### ProcessAction
+### GetId
+This is the unique identifier for this input screen.
 
+### ProcessAction
+This code is invoked when the user invokes the button or action associated with the value returned by **GetId**.
