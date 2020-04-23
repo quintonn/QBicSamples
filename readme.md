@@ -18,3 +18,9 @@ Before running this samples application, you need to make sure of the following:
 4. Add HTTPS binding to IIS for **Default Site**.
 5. Install [URL REWRITE](https://www.iis.net/downloads/microsoft/url-rewrite) module into IIS.  
    
+# Running the code
+To run the samples:
+1. Clone the project
+2. Load the solution in Visual Studio (running as admin)
+3. Rebuild the application (don't run it), this restores all nuget repositories
+4. Run the application
