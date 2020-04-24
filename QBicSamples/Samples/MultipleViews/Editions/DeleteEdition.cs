@@ -5,24 +5,26 @@ using System.Threading.Tasks;
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus;
 using WebsiteTemplate.Menus.BaseItems;
+using WebsiteTemplate.Menus.ViewItems.CoreItems;
 using WebsiteTemplate.Utilities;
 
 namespace QBicSamples.BackEnd.MultipleViews.Editions
 {
-    public class DeleteEdition : DoSomething
+    public class DeleteEdition : CoreDeleteAction<Edition>
     {
-        private DataService DataService { get; set; }
 
         public string ManufacturerId;
         public string ModelId;
         public DeleteEdition(DataService dataService)
+           : base(dataService)
         {
-            DataService = dataService;
         }
 
         public override bool AllowInMenu => false;
 
-        public override string Description => "Delete Edition";
+        public override string EntityName => "Edition";
+
+        public override EventNumber ViewNumber => MenuNumber.ViewEditions;
 
         public override EventNumber GetId()
         {

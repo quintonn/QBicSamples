@@ -2,6 +2,7 @@
 using QBicSamples.SiteSpecific;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus;
@@ -48,6 +49,7 @@ namespace QBicSamples.Samples.MultipleViews.Editions
                 Edition = new Edition();
                 Edition.ManufacturerId = ManufacturerId;
                 Edition.ModelId = ModelId;
+                Edition.EditionYear = DateTime.ParseExact("1990-01-01", "yyyy-MM-dd", CultureInfo.InvariantCulture);
             }
             else
             {
@@ -63,13 +65,12 @@ namespace QBicSamples.Samples.MultipleViews.Editions
         public override IList<InputField> GetInputFields()
         {
             var result = new List<InputField>();
-
+            var editionYear = Edition?.EditionYear;
             result.Add(new HiddenInput("Id", Edition?.Id)); // Need to add it so it's available when doing update
             result.Add(new HiddenInput("ManufacturerId", Edition?.ManufacturerId));
             result.Add(new HiddenInput("ModelId", Edition?.ModelId));
             result.Add(new StringInput("EditionName", "Name", Edition?.EditionName, null, true));
-            result.Add(new DateInput("EditionYear", "Year", Edition?.EditionYear, null, true));
-            result.Add(new NumericInput<decimal>("Price", "Price", Edition?.Price, null, true));
+            result.Add(new DateInput("EditionYear", "Year", Edition?.EditionYear, null, false));
 
             return result;
         }
@@ -88,7 +89,6 @@ namespace QBicSamples.Samples.MultipleViews.Editions
                 var id = GetValue("Id");
                 var name = GetValue("EditionName");
                 var year = GetValue<DateTime>("EditionYear");
-                var price = GetValue<Decimal>("Price");
                 var manufacturerId = GetValue("ManufacturerId");
                 var modelId = GetValue("ModelId");
 
@@ -118,7 +118,6 @@ namespace QBicSamples.Samples.MultipleViews.Editions
                     {
                         dbItem.EditionName = name;
                         dbItem.EditionYear = year;
-                        dbItem.Price = price;
                     }
 
                     DataService.SaveOrUpdate(session, dbItem); // Using saveOrUpdate adds this task to audit log

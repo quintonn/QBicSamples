@@ -61,7 +61,7 @@ namespace QBicSamples.BackEnd.AdvancedSample
         public override IList<InputField> GetInputFields()
         {
             var result = new List<InputField>();
-
+            
             result.Add(new HiddenInput("Id", Model?.Id)); // Need to add it so it's available when doing update
             result.Add(new StringInput("Text", "Text", Model?.StringValue, null, true));
             result.Add(new NumericInput<int>("Number", "Number", Model?.NumberValue, null, true));

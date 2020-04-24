@@ -16,6 +16,5 @@ namespace QBicSamples.Models
         public virtual string ModelId { get; set; }
         public virtual string EditionName { get; set; }
         public virtual DateTime EditionYear { get; set; }
-        public virtual decimal Price { get; set; }
     }
 }

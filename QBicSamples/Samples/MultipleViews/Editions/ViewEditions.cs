@@ -28,6 +28,7 @@ namespace QBicSamples.Samples.MultipleViews.Editions
         public override void ConfigureColumns(ColumnConfiguration columnConfig)
         {
             columnConfig.AddStringColumn("Name", "EditionName");
+            columnConfig.AddStringColumn("Year", "EditionYear");
 
             columnConfig.AddLinkColumn("", "Id", "Edit", MenuNumber.EditEdition);
 
@@ -100,7 +101,6 @@ namespace QBicSamples.Samples.MultipleViews.Editions
         }
         public override IList<MenuItem> GetViewMenu(Dictionary<string, string> dataForMenu)
         {
-
             return new List<MenuItem>()
             {
                 new MenuItem("Back", MenuNumber.ViewModels, dataForMenu["BackData"]),

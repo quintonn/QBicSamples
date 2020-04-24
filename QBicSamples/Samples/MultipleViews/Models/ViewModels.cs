@@ -85,7 +85,6 @@ namespace QBicSamples.Samples.MultipleViews.Models
         }
         public override IList<MenuItem> GetViewMenu(Dictionary<string, string> dataForMenu)
         {
-
             return new List<MenuItem>()
             {
                 new MenuItem("Back", MenuNumber.ViewManufacturers),

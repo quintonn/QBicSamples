@@ -39,8 +39,7 @@ namespace QBicSamples.Samples.MultipleViews.Editions
             var message = "You select edition with the following details <br/> " +
                           "Id: " + edition.Id + "<br/>" +
                           "Name: " + edition.EditionName + "<br/>" +
-                          "Year: " + edition.EditionYear.Year + "<br/>" +
-                          "Price: " + edition.Price + "<br/>";
+                          "Year: " + edition.EditionYear.Year + "<br/>";
 
             var result = new List<IEvent>()
             {

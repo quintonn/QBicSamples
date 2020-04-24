@@ -5,24 +5,22 @@ using System.Threading.Tasks;
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus;
 using WebsiteTemplate.Menus.BaseItems;
+using WebsiteTemplate.Menus.ViewItems.CoreItems;
 using WebsiteTemplate.Utilities;
 
 namespace QBicSamples.BackEnd.MultipleViews.Models
 {
-    public class DeleteModel : DoSomething
+    public class DeleteModel : CoreDeleteAction<VehicleModel>
     {
-        private DataService DataService { get; set; }
 
         public string ManufacturerId;
         public DeleteModel(DataService dataService)
+           : base(dataService)
         {
-            DataService = dataService;
         }
-
         public override bool AllowInMenu => false;
-
-        public override string Description => "Delete Model";
-
+        public override string EntityName => "VehicleModel";
+        public override EventNumber ViewNumber => MenuNumber.ViewModels;
         public override EventNumber GetId()
         {
             return MenuNumber.DeleteModel;
