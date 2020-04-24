@@ -287,6 +287,11 @@
     <Content Include="Frontend\fonts\fontawesome-webfont.ttf" />
     <Content Include="Frontend\fonts\fontawesome-webfont.eot" />
     <None Include="packages.config" />
+    <None Include="Samples\AdvancedSample\readme.md" />
+    <None Include="Samples\BackgroundProcessing\readme.md" />
+    <None Include="Samples\BasicCrudSample\readme.md" />
+    <None Include="Samples\BasicSample\readme.md" />
+    <None Include="Samples\MultipleViews\readme.md" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
