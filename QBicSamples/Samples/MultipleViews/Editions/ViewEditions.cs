@@ -1,29 +1,29 @@
 ﻿using NHibernate;
 using QBicSamples.Models;
 using QBicSamples.SiteSpecific;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus;
 using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.ViewItems;
+using WebsiteTemplate.Menus.ViewItems.CoreItems;
 using WebsiteTemplate.Utilities;
 
 namespace QBicSamples.Samples.MultipleViews.Editions
 {
-    public class ViewEditions : ShowView
+    public class ViewEditions : CoreView<Edition>
     {
         private string ManufacturerId { get; set; }
         private string ModelId { get; set; }
-        private DataService DataService { get; set; }
-        public ViewEditions(DataService dataService)
+        public ViewEditions(DataService dataService) : base(dataService)
         {
-            DataService = dataService;
+
         }
-
         public override bool AllowInMenu => false;
-
         public override string Description => "View Editions";
         public override void ConfigureColumns(ColumnConfiguration columnConfig)
         {
@@ -105,6 +105,14 @@ namespace QBicSamples.Samples.MultipleViews.Editions
             {
                 new MenuItem("Back", MenuNumber.ViewModels, dataForMenu["BackData"]),
                 new MenuItem("Add", MenuNumber.AddEdition, dataForMenu["AddData"])
+            };
+        }
+
+        public override List<Expression<Func<Edition, object>>> GetFilterItems()
+        {
+            return new List<Expression<Func<Edition, object>>>()
+            {
+                x => x.EditionName
             };
         }
     }

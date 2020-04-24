@@ -3,38 +3,34 @@ using QBicSamples.SiteSpecific;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.ServiceModel.Channels;
 using System.Threading.Tasks;
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus;
 using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.InputItems;
+using WebsiteTemplate.Menus.ViewItems.CoreItems;
 using WebsiteTemplate.Utilities;
 
 namespace QBicSamples.Samples.MultipleViews.Editions
 {
-    public abstract class ModifyEdition : GetInput
+    public abstract class ModifyEdition : CoreModify<Edition>
     {
-        private bool IsNew { get; set; }
-
         public string EditionId;
 
         public string ModelId;
 
         public string ManufacturerId;
-        public ModifyEdition(DataService dataService, bool isNew)
+        public ModifyEdition(DataService dataService, bool isNew) : base(dataService, isNew)
         {
-            DataService = dataService;
-            IsNew = isNew;
         }
-
         private Edition Edition { get; set; }
-
-        private DataService DataService { get; set; }
-
         public override bool AllowInMenu => false;
-
-        public override string Description => IsNew ? "Add Edition" : "Edit Edition";
-
+        public override string EntityName => "Edition";
+        public override EventNumber GetViewNumber()
+        {
+            return MenuNumber.ViewEditions;
+        }
         public override async Task<InitializeResult> Initialize(string data)
         {
             var json = JsonHelper.Parse(data);
@@ -62,19 +58,18 @@ namespace QBicSamples.Samples.MultipleViews.Editions
             return new InitializeResult(true);
         }
 
-        public override IList<InputField> GetInputFields()
+        public override List<InputField> InputFields()
         {
             var result = new List<InputField>();
-            var editionYear = Edition?.EditionYear;
-            result.Add(new HiddenInput("Id", Edition?.Id)); // Need to add it so it's available when doing update
-            result.Add(new HiddenInput("ManufacturerId", Edition?.ManufacturerId));
-            result.Add(new HiddenInput("ModelId", Edition?.ModelId));
-            result.Add(new StringInput("EditionName", "Name", Edition?.EditionName, null, true));
-            result.Add(new DateInput("EditionYear", "Year", Edition?.EditionYear, null, false));
+            result.Add(new HiddenInput("Id", Item?.Id)); // Need to add it so it's available when doing update
+            result.Add(new HiddenInput("ManufacturerId", Item?.ManufacturerId));
+            result.Add(new HiddenInput("ModelId", Item?.ModelId));
+            result.Add(new StringInput("EditionName", "Name", Item?.EditionName, null, true));
+            result.Add(new DateInput("EditionYear", "Year", Item?.EditionYear, null, false));
 
             return result;
         }
-
+        public abstract Task<IList<IEvent>> PerformModify(bool isNew, string id, ISession session);
         public override async Task<IList<IEvent>> ProcessAction(int actionNumber)
         {
             if (actionNumber == 1) // User clicked cancel

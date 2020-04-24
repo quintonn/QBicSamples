@@ -1,25 +1,26 @@
 ﻿using NHibernate;
 using QBicSamples.Models;
 using QBicSamples.SiteSpecific;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus;
 using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.ViewItems;
+using WebsiteTemplate.Menus.ViewItems.CoreItems;
 using WebsiteTemplate.Utilities;
 
 namespace QBicSamples.Samples.MultipleViews.Models
 {
-    public class ViewModels : ShowView
+    public class ViewModels : CoreView<VehicleModel>
     {
         private string ManufacturerId { get; set; }
-        private DataService DataService { get; set; }
-
-        public ViewModels(DataService dataService)
+        public ViewModels(DataService dataService) : base(dataService)
         {
-            DataService = dataService;
+
         }
 
         public override bool AllowInMenu => false;
@@ -89,6 +90,14 @@ namespace QBicSamples.Samples.MultipleViews.Models
             {
                 new MenuItem("Back", MenuNumber.ViewManufacturers),
                 new MenuItem("Add", MenuNumber.AddModel, dataForMenu["Data"])
+            };
+        }
+
+        public override List<Expression<Func<VehicleModel, object>>> GetFilterItems()
+        {
+            return new List<Expression<Func<VehicleModel, object>>>()
+            {
+                x => x.Name
             };
         }
     }
