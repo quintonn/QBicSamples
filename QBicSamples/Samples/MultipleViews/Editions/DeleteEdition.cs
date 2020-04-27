@@ -30,18 +30,23 @@ namespace QBicSamples.BackEnd.MultipleViews.Editions
         {
             return MenuNumber.DeleteEdition;
         }
-        public string ParameterToPassToView()
+        public override string ParametersToPassToView
         {
-            var data = new
+            get
             {
-                data = new
+                var manufacturerId = GetValue("ManufacturerId");
+                var modelId = GetValue("ModelId");
+                var data = new
                 {
-                    Id = ModelId,
-                    ManufacturerId
-                }
-            };
-            var json = JsonHelper.SerializeObject(data);
-            return json;
+                    data = new
+                    {
+                        Id = modelId,
+                        ManufacturerId = manufacturerId
+                    }
+                };
+                var json = JsonHelper.SerializeObject(data);
+                return json;
+            }
         }
     }
 }

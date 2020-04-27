@@ -1,5 +1,7 @@
 ﻿using QBic.Core.Models;
 using System;
+using System.Globalization;
+
 namespace QBicSamples.Models
 {
     // if your comment is just naming the class, it is not needed. only add comments if they add information that is not obvious.
@@ -15,6 +17,6 @@ namespace QBicSamples.Models
         public virtual string ManufacturerId { get; set; }
         public virtual string ModelId { get; set; }
         public virtual string EditionName { get; set; }
-        public virtual DateTime EditionYear { get; set; }
+        public virtual DateTime EditionYear { get; set; } = DateTime.ParseExact("1990-01-01", "yyyy-MM-dd", CultureInfo.InvariantCulture);
     }
 }

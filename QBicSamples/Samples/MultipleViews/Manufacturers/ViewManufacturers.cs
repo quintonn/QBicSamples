@@ -15,7 +15,6 @@ namespace QBicSamples.Samples.MultipleViews.Manufacturers
     {
         public ViewManufacturers(DataService dataService) : base(dataService)
         {
-           
         }
         public override bool AllowInMenu => true;
 
@@ -39,12 +38,10 @@ namespace QBicSamples.Samples.MultipleViews.Manufacturers
                 x => x.Name
             };
         }
-
         public override EventNumber GetId()
         {
             return MenuNumber.ViewManufacturers;
         }
-
         public override IList<MenuItem> GetViewMenu(Dictionary<string, string> dataForMenu)
         {
             return new List<MenuItem>()

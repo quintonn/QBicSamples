@@ -42,7 +42,7 @@ namespace QBicSamples.Samples.MultipleViews.Models
 
             ManufacturerId = json.GetValue("ManufacturerId");
 
-            return new InitializeResult(true);
+            return await base.Initialize(data);
         }
         public override async Task<IList<IEvent>> PerformModify(bool isNew, string id, ISession session)
         {

@@ -22,7 +22,6 @@ namespace QBicSamples.Samples.MultipleViews.Models
         {
 
         }
-
         public override bool AllowInMenu => false;
 
         public override string Description => "View Models"; 
@@ -51,7 +50,6 @@ namespace QBicSamples.Samples.MultipleViews.Models
                 return modelslist;
             }
         }
-
         public override int GetDataCount(GetDataSettings settings)
         {
             using (var session = DataService.OpenSession())
@@ -66,7 +64,6 @@ namespace QBicSamples.Samples.MultipleViews.Models
             var query = session.QueryOver<VehicleModel>()
                                .Where(x => x.ManufacturerId == ManufacturerId)
                                .OrderBy(x => x.Name).Asc;
-                               
             return query;
         }
         public override Dictionary<string, string> DataForGettingMenu
@@ -92,7 +89,6 @@ namespace QBicSamples.Samples.MultipleViews.Models
                 new MenuItem("Add", MenuNumber.AddModel, dataForMenu["Data"])
             };
         }
-
         public override List<Expression<Func<VehicleModel, object>>> GetFilterItems()
         {
             return new List<Expression<Func<VehicleModel, object>>>()

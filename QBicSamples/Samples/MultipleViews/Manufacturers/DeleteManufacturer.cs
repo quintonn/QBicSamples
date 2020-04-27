@@ -15,7 +15,6 @@ namespace QBicSamples.Samples.MultipleViews.Manufacturers
            : base(dataService)
         {
         }
-
         public override string EntityName => "Manufacturer";
 
         public override EventNumber ViewNumber => MenuNumber.ViewManufacturers;
@@ -24,7 +23,6 @@ namespace QBicSamples.Samples.MultipleViews.Manufacturers
         {
             return MenuNumber.DeleteManufacturer;
         }
-
         public override void DeleteOtherItems(ISession session, Manufacturer mainItem)
         {
             session.Query<VehicleModel>().Where(x => x.ManufacturerId == mainItem.Id).Delete();

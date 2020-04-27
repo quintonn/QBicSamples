@@ -35,7 +35,7 @@ namespace QBicSamples.Samples.MultipleViews.Editions
             result.Add(new HiddenInput("ManufacturerId", Item?.ManufacturerId));
             result.Add(new HiddenInput("ModelId", Item?.ModelId));
             result.Add(new StringInput("EditionName", "Name", Item?.EditionName, null, true));
-            result.Add(new DateInput("EditionYear", "Year", Item?.EditionYear ?? DateTime.ParseExact("1990-01-01", "yyyy-MM-dd", CultureInfo.InvariantCulture), null, false));
+            result.Add(new DateInput("EditionYear", "Year", Item?.EditionYear, null, false));
 
             return result;
         }
@@ -46,7 +46,7 @@ namespace QBicSamples.Samples.MultipleViews.Editions
             ModelId = json.GetValue("ModelId");
             ManufacturerId = json.GetValue("ManufacturerId");
 
-            return new InitializeResult(true);
+            return await base.Initialize(data);
         }
         public override async Task<IList<IEvent>> PerformModify(bool isNew, string id, ISession session)
         {

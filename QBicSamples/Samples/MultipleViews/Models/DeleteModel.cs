@@ -14,8 +14,6 @@ namespace QBicSamples.BackEnd.MultipleViews.Models
 {
     public class DeleteModel : CoreDeleteAction<VehicleModel>
     {
-
-        public string ManufacturerId;
         public DeleteModel(DataService dataService)
            : base(dataService)
         {
@@ -27,17 +25,21 @@ namespace QBicSamples.BackEnd.MultipleViews.Models
         {
             return MenuNumber.DeleteModel;
         }
-        public string ParameterToPassToView()
-        {
-           var data = new
+        public override string ParametersToPassToView  
+        { 
+            get
+            {
+                var manufacturerId = GetValue("ManufacturerId");
+                var data = new
                 {
                     data = new
                     {
-                        Id = ManufacturerId
+                        Id = manufacturerId
                     }
                 };
                 var json = JsonHelper.SerializeObject(data);
-            return json;
+                return json;
+            } 
         }
         public override void DeleteOtherItems(ISession session, VehicleModel mainItem)
         {
