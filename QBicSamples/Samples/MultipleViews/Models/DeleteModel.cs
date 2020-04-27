@@ -7,6 +7,8 @@ using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.ViewItems.CoreItems;
 using WebsiteTemplate.Utilities;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace QBicSamples.BackEnd.MultipleViews.Models
 {
@@ -25,11 +27,9 @@ namespace QBicSamples.BackEnd.MultipleViews.Models
         {
             return MenuNumber.DeleteModel;
         }
-
         public string ParameterToPassToView()
         {
-           
-                var data = new
+           var data = new
                 {
                     data = new
                     {
@@ -37,8 +37,7 @@ namespace QBicSamples.BackEnd.MultipleViews.Models
                     }
                 };
                 var json = JsonHelper.SerializeObject(data);
-                return json;
-           
+            return json;
         }
         public override void DeleteOtherItems(ISession session, VehicleModel mainItem)
         {
