@@ -66,6 +66,11 @@ namespace QBicSamples.Samples.MultipleViews.Models
 
             DataService.SaveOrUpdate(session, model);
 
+            return null;
+        }
+
+        public override string GetParameterToPassToView()
+        {
             var data = new
             {
                 data = new
@@ -74,11 +79,7 @@ namespace QBicSamples.Samples.MultipleViews.Models
                 }
             };
             var json = JsonHelper.SerializeObject(data);
-            return new List<IEvent>()
-                {
-                    new CancelInputDialog(),
-                    new ExecuteAction(MenuNumber.ViewModels, json),
-                };
+            return json;
         }
     }
 }

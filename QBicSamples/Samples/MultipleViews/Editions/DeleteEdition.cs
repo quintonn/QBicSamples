@@ -30,22 +30,8 @@ namespace QBicSamples.BackEnd.MultipleViews.Editions
         {
             return MenuNumber.DeleteEdition;
         }
-
-        public override async Task<IList<IEvent>> ProcessAction()
+        public string ParameterToPassToView()
         {
-            var id = GetValue("Id");
-            using (var session = DataService.OpenSession())
-            {
-                var edition = session.Get<Edition>(id);
-                ManufacturerId = edition.ManufacturerId;
-                ModelId = edition.ModelId;
-
-                DataService.TryDelete(session, edition); // Do deletes this way to have it audited
-                                                       //session.Delete(model); // This way won't be audited.
-
-                session.Flush();
-            }
-
             var data = new
             {
                 data = new
@@ -55,13 +41,7 @@ namespace QBicSamples.BackEnd.MultipleViews.Editions
                 }
             };
             var json = JsonHelper.SerializeObject(data);
-
-            return new List<IEvent>()
-            {
-                new ShowMessage("Edition deleted successfully"),
-                new CancelInputDialog(),
-                new ExecuteAction(MenuNumber.ViewEditions, json)
-            };
+            return json;
         }
     }
 }

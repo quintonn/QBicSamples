@@ -15,14 +15,11 @@ namespace QBicSamples.Samples.MultipleViews.Manufacturers
         public ModifyManufacturer(DataService dataService, bool isNew) : base(dataService, isNew)
         {
         }
-
         public override string EntityName => "Manufacturer";
-
         public override EventNumber GetViewNumber()
         {
             return MenuNumber.ViewManufacturers;
         }
-
         public override List<InputField> InputFields()
         {
             var result = new List<InputField>();
@@ -31,7 +28,6 @@ namespace QBicSamples.Samples.MultipleViews.Manufacturers
 
             return result;
         }
-
         public override async Task<IList<IEvent>> PerformModify(bool isNew, string id, ISession session)
         {
             var name = GetValue("Name");
@@ -39,19 +35,12 @@ namespace QBicSamples.Samples.MultipleViews.Manufacturers
             Manufacturer manufacturer;
 
             if (isNew)
-
             {
-
                 manufacturer = new Manufacturer();
-
             }
-
             else
-
             {
-
                 manufacturer = session.Get<Manufacturer>(id);
-
             }
 
             manufacturer.Name = name;

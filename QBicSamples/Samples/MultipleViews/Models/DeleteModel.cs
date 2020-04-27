@@ -1,9 +1,9 @@
-﻿using QBicSamples.Models;
+﻿using NHibernate;
+using NHibernate.Linq;
+using System.Linq;
+using QBicSamples.Models;
 using QBicSamples.SiteSpecific;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using WebsiteTemplate.Backend.Services;
-using WebsiteTemplate.Menus;
 using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.ViewItems.CoreItems;
 using WebsiteTemplate.Utilities;
@@ -26,35 +26,23 @@ namespace QBicSamples.BackEnd.MultipleViews.Models
             return MenuNumber.DeleteModel;
         }
 
-        public override async Task<IList<IEvent>> ProcessAction()
+        public string ParameterToPassToView()
         {
-            var id = GetValue("Id");
-            using (var session = DataService.OpenSession())
-            {
-                var model = session.Get<VehicleModel>(id);
-                ManufacturerId = model.ManufacturerId;
-
-                DataService.TryDelete(session, model); // Do deletes this way to have it audited
-                                                       //session.Delete(model); // This way won't be audited.
-
-                session.Flush();
-            }
-
-            var data = new
-            {
-                data = new
+           
+                var data = new
                 {
-                    Id = ManufacturerId
-                }
-            };
-            var json = JsonHelper.SerializeObject(data);
-
-            return new List<IEvent>()
-            {
-                new ShowMessage("Model deleted successfully"),
-                new CancelInputDialog(),
-                new ExecuteAction(MenuNumber.ViewModels, json)
-            };
+                    data = new
+                    {
+                        Id = ManufacturerId
+                    }
+                };
+                var json = JsonHelper.SerializeObject(data);
+                return json;
+           
+        }
+        public override void DeleteOtherItems(ISession session, VehicleModel mainItem)
+        {
+            session.Query<Edition>().Where(x => x.ModelId == mainItem.Id).Delete();
         }
     }
 }

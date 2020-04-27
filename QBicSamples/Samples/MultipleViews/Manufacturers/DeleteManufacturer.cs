@@ -1,4 +1,7 @@
-﻿using QBicSamples.Models;
+﻿using NHibernate;
+using NHibernate.Linq;
+using System.Linq;
+using QBicSamples.Models;
 using QBicSamples.SiteSpecific;
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus.BaseItems;
@@ -22,5 +25,10 @@ namespace QBicSamples.Samples.MultipleViews.Manufacturers
             return MenuNumber.DeleteManufacturer;
         }
 
+        public override void DeleteOtherItems(ISession session, Manufacturer mainItem)
+        {
+            session.Query<VehicleModel>().Where(x => x.ManufacturerId == mainItem.Id).Delete();
+            session.Query<Edition>().Where(x => x.ManufacturerId == mainItem.Id).Delete();
+        }
     }
 }
