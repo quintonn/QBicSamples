@@ -15,8 +15,6 @@ namespace QBicSamples.Samples.MultipleViews.Models
 {
     public abstract class ModifyModel : CoreModify<VehicleModel>
     {
-        private VehicleModel Model { get; set; }
-        
         public string ModelId;
 
         public string ManufacturerId;
