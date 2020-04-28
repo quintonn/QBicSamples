@@ -3,7 +3,8 @@ using QBicSamples.Models;
 using QBicSamples.SiteSpecific;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Globalization; // remove unused "usings" // there is a right-click option and shortcut to do this
+x.7
 using System.Threading.Tasks;
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus;
@@ -43,8 +44,8 @@ namespace QBicSamples.Samples.MultipleViews.Editions
         {
             var json = JsonHelper.Parse(data);
 
-            ModelId = json.GetValue("ModelId");
-            ManufacturerId = json.GetValue("ManufacturerId");
+            ModelId = json.GetValue("ModelId");  // x.2
+            ManufacturerId = json.GetValue("ManufacturerId");  // x.1
 
             return await base.Initialize(data);
         }
@@ -66,8 +67,8 @@ namespace QBicSamples.Samples.MultipleViews.Editions
             if (isNew)
             {
                 edition = new Edition();
-                edition.ManufacturerId = ManufacturerId;
-                edition.ModelId = ModelId;
+                edition.ManufacturerId = ManufacturerId; 1. this should be GetValue("ManufacturerId"); // see x.1 above
+                edition.ModelId = ModelId;   2. this should be GetValue("ModelId"); // see x.2 above
             }
             else
             {

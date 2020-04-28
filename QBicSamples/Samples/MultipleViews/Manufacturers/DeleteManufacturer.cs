@@ -25,6 +25,7 @@ namespace QBicSamples.Samples.MultipleViews.Manufacturers
         }
         public override void DeleteOtherItems(ISession session, Manufacturer mainItem)
         {
+            x.3
             session.Query<VehicleModel>().Where(x => x.ManufacturerId == mainItem.Id).Delete();
             session.Query<Edition>().Where(x => x.ManufacturerId == mainItem.Id).Delete();
         }

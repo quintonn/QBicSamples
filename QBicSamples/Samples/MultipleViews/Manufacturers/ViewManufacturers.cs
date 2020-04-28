@@ -22,7 +22,8 @@ namespace QBicSamples.Samples.MultipleViews.Manufacturers
 
         public override void ConfigureColumns(ColumnConfiguration columnConfig)
         {
-            // Delete these blank lines in between calls to columnConfig
+            //Delete these blank lines in between calls to columnConfig
+            x.5
             columnConfig.AddStringColumn("Name", "Name");
 
             columnConfig.AddLinkColumn("", "Id", "Models", MenuNumber.ViewModels);

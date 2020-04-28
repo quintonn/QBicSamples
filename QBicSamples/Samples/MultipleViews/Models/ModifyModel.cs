@@ -53,7 +53,7 @@ namespace QBicSamples.Samples.MultipleViews.Models
             if (isNew)
             {
                 model = new VehicleModel();
-                model.ManufacturerId = ManufacturerId;
+                model.ManufacturerId = ManufacturerId;  // same as x.1
             }
             else
             {

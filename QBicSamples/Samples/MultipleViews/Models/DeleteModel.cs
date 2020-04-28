@@ -9,6 +9,7 @@ using WebsiteTemplate.Menus.ViewItems.CoreItems;
 using WebsiteTemplate.Utilities;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace QBicSamples.BackEnd.MultipleViews.Models
 {
@@ -43,6 +44,16 @@ namespace QBicSamples.BackEnd.MultipleViews.Models
         }
         public override void DeleteOtherItems(ISession session, VehicleModel mainItem)
         {
+            you should call the following code instead:
+            // x.3
+            var editionItems = session.QueryOver<Edition>().Where(x => x.ModelId == mainItem.Id).List().ToList();
+            editionItems.ForEach(item =>
+            {
+                // DataService does auditing
+                DataService.TryDelete(session, item);
+            });
+            
+            // this code does not audit the change
             session.Query<Edition>().Where(x => x.ModelId == mainItem.Id).Delete();
         }
     }

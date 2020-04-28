@@ -27,6 +27,7 @@ namespace QBicSamples.Samples.MultipleViews.Models
         public override string Description => "View Models"; 
         public override void ConfigureColumns(ColumnConfiguration columnConfig)
         {
+            x.5
             columnConfig.AddStringColumn("Name", "Name");
 
             columnConfig.AddLinkColumn("", "Id", "Editions", MenuNumber.ViewEditions);
