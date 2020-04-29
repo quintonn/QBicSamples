@@ -84,7 +84,6 @@ namespace QBicSamples.Samples.MultipleViews.Editions
             var query = session.QueryOver<Edition>()
                                .Where(x => x.ManufacturerId == ManufacturerId && x.ModelId == ModelId)
                                .OrderBy(x => x.EditionName).Asc;
-
             return query;
         }
         public override Dictionary<string, string> DataForGettingMenu
