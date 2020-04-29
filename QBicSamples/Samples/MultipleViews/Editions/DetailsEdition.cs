@@ -36,10 +36,7 @@ namespace QBicSamples.Samples.MultipleViews.Editions
                 edition = session.Get<Edition>(id);
             }
 
-            // x.4
-           // try use code like this instead:
-            //var message = $"You selected edition with the following details <br/>Id: ${edition.Id}<br/>Name: {edition.EditionName}......";
-            var message = $"You select edition with the following details <br/>Id: ${edition.Id}<br/>Name: { edition.EditionName}<br/>Year: { edition.EditionYear.Year}<br/>";
+            var message = $"You select edition with the following details <br/>Id: {edition.Id}<br/>Name: { edition.EditionName}<br/>Year: { edition.EditionYear.Year}<br/>";
 
             var result = new List<IEvent>()
             {
