@@ -67,11 +67,17 @@ namespace QBicSamples.Samples.MultipleViews.Editions
                 return result;
             }
         }
+
+        public override Dictionary<string, object> GetEventParameters()
+        {
+            return new Dictionary<string, object>()
+            {
+                { "ManufacturerId", ManufacturerId },
+                { "Id", ModelId}
+            };
+        }
         public IQueryOver<Edition> CreateQuery(ISession session, GetDataSettings settings)
         {
-          //  If you type someting in the search box does it all still work?
-            //What if you search and go back to a previous screen, does it all still work also?
-
             ManufacturerId = GetParameter("ManufacturerId", settings);
             ModelId = GetParameter("Id", settings);
 
