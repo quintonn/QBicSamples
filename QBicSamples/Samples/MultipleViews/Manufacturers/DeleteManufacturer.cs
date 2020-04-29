@@ -25,9 +25,18 @@ namespace QBicSamples.Samples.MultipleViews.Manufacturers
         }
         public override void DeleteOtherItems(ISession session, Manufacturer mainItem)
         {
-            x.3
-            session.Query<VehicleModel>().Where(x => x.ManufacturerId == mainItem.Id).Delete();
-            session.Query<Edition>().Where(x => x.ManufacturerId == mainItem.Id).Delete();
+            var vehicleModelItems = session.QueryOver<VehicleModel>().Where(x => x.ManufacturerId == mainItem.Id).List().ToList();
+            vehicleModelItems.ForEach(item =>
+            {
+                // DataService does auditing
+                DataService.TryDelete(session, item);
+            });
+            var editionItems = session.QueryOver<Edition>().Where(x => x.ManufacturerId == mainItem.Id).List().ToList();
+            editionItems.ForEach(item =>
+            {
+                // DataService does auditing
+                DataService.TryDelete(session, item);
+            });
         }
     }
 }

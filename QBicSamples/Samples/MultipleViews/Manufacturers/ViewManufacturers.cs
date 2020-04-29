@@ -22,14 +22,9 @@ namespace QBicSamples.Samples.MultipleViews.Manufacturers
 
         public override void ConfigureColumns(ColumnConfiguration columnConfig)
         {
-            //Delete these blank lines in between calls to columnConfig
-            x.5
             columnConfig.AddStringColumn("Name", "Name");
-
             columnConfig.AddLinkColumn("", "Id", "Models", MenuNumber.ViewModels);
-
             columnConfig.AddLinkColumn("", "Id", "Edit", MenuNumber.EditManufacturer);
-
             columnConfig.AddButtonColumn("", "Id", "X", new UserConfirmation("Delete manufacturer?", MenuNumber.DeleteManufacturer));
         }
         public override List<Expression<Func<Manufacturer, object>>> GetFilterItems()

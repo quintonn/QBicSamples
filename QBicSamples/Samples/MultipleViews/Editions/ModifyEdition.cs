@@ -3,8 +3,6 @@ using QBicSamples.Models;
 using QBicSamples.SiteSpecific;
 using System;
 using System.Collections.Generic;
-using System.Globalization; // remove unused "usings" // there is a right-click option and shortcut to do this
-x.7
 using System.Threading.Tasks;
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus;
@@ -43,16 +41,14 @@ namespace QBicSamples.Samples.MultipleViews.Editions
         public override async Task<InitializeResult> Initialize(string data)
         {
             var json = JsonHelper.Parse(data);
-
-            ModelId = json.GetValue("ModelId");  // x.2
-            ManufacturerId = json.GetValue("ManufacturerId");  // x.1
-
             return await base.Initialize(data);
         }
         public override async Task<IList<IEvent>> PerformModify(bool isNew, string id, ISession session)
         {
             var name = GetValue("EditionName");
             var year = GetValue<DateTime>("EditionYear");
+            ModelId = GetValue("ModelId");  // x.2
+            ManufacturerId = GetValue("ManufacturerId");  // x.1
 
             if (String.IsNullOrEmpty(name))
             {
@@ -67,8 +63,8 @@ namespace QBicSamples.Samples.MultipleViews.Editions
             if (isNew)
             {
                 edition = new Edition();
-                edition.ManufacturerId = ManufacturerId; 1. this should be GetValue("ManufacturerId"); // see x.1 above
-                edition.ModelId = ModelId;   2. this should be GetValue("ModelId"); // see x.2 above
+                edition.ManufacturerId = ManufacturerId; //1. //this should be GetValue("ManufacturerId"); // see x.1 above
+                edition.ModelId = ModelId;  // 2. this should be GetValue("ModelId"); // see x.2 above
             }
             else
             {
