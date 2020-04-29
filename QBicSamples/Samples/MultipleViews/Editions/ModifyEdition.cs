@@ -31,8 +31,8 @@ namespace QBicSamples.Samples.MultipleViews.Editions
         {
             var result = new List<InputField>();
             result.Add(new HiddenInput("Id", Item?.Id)); // Need to add it so it's available when doing update
-            result.Add(new HiddenInput("ManufacturerId", Item?.ManufacturerId));
-            result.Add(new HiddenInput("ModelId", Item?.ModelId));
+            result.Add(new HiddenInput("ManufacturerId", Item?.ManufacturerId ?? ManufacturerId));
+            result.Add(new HiddenInput("ModelId", Item?.ModelId ?? ModelId));
             result.Add(new StringInput("EditionName", "Name", Item?.EditionName, null, true));
             result.Add(new DateInput("EditionYear", "Year", Item?.EditionYear, null, false));
 
@@ -41,14 +41,16 @@ namespace QBicSamples.Samples.MultipleViews.Editions
         public override async Task<InitializeResult> Initialize(string data)
         {
             var json = JsonHelper.Parse(data);
+
+            ModelId = json.GetValue("ModelId"); 
+            ManufacturerId = json.GetValue("ManufacturerId");  
+
             return await base.Initialize(data);
         }
         public override async Task<IList<IEvent>> PerformModify(bool isNew, string id, ISession session)
         {
             var name = GetValue("EditionName");
             var year = GetValue<DateTime>("EditionYear");
-            ModelId = GetValue("ModelId");  // x.2
-            ManufacturerId = GetValue("ManufacturerId");  // x.1
 
             if (String.IsNullOrEmpty(name))
             {
@@ -63,8 +65,8 @@ namespace QBicSamples.Samples.MultipleViews.Editions
             if (isNew)
             {
                 edition = new Edition();
-                edition.ManufacturerId = ManufacturerId; //1. //this should be GetValue("ManufacturerId"); // see x.1 above
-                edition.ModelId = ModelId;  // 2. this should be GetValue("ModelId"); // see x.2 above
+                edition.ManufacturerId = GetValue("ManufacturerId"); 
+                edition.ModelId = GetValue("ModelId"); 
             }
             else
             {
