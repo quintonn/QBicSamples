@@ -12,11 +12,10 @@ The **Samples** folder contains example code for creating various input screens 
 # Pre-requisites
 Before running this samples application, you need to make sure of the following:  
 
-1. You have added a Nuget Package Source that contains the QBic platform binaries.  
-2. You have IIS installed on your development machine.  
-3. You run Visual Studio as an administrator when working on QBic projects.
-4. Add HTTPS binding to IIS for **Default Site**.
-5. Install [URL REWRITE](https://www.iis.net/downloads/microsoft/url-rewrite) module into IIS.  
+1. You have IIS installed on your development machine.  
+2. You run Visual Studio as an administrator when working on QBic projects.
+3. Add HTTPS binding to IIS for **Default Site**.
+4. Install [URL REWRITE](https://www.iis.net/downloads/microsoft/url-rewrite) module into IIS.  
    
 # Running the code
 To run the samples:
