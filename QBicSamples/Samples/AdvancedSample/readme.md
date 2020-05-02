@@ -1,5 +1,5 @@
 # Introduction
-The **AdvancedSample** folder is the most complicate method of creating a view, with add, edit and delete functionality.
+The **AdvancedSample** folder is the most complicated method of creating a view, with add, edit and delete functionality.
 
 The classes in this folder correspond more or less to CRUD functionality.
 
