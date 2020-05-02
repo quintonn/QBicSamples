@@ -1,7 +1,7 @@
 # Introduction
 This **QBicSamples** project contains various examples of the capabilities of the QBic platform as well as sample code for implementing the various features.
 
-The **QBic** platform comprises a back-end web server, that is used to generate the web pages, or front-end, for a fully functional web-based application.  
+The [QBic](https://github.com/quintonn/QBic) platform comprises a back-end web server, that is used to generate the web pages, or front-end, for a fully functional web-based application.  
 
 Most of the relevant code is inside the **Models** and the **Samples** folders.  
 
@@ -22,5 +22,6 @@ Before running this samples application, you need to make sure of the following:
 To run the samples:
 1. Clone the project
 2. Load the solution in Visual Studio (running as admin)
-3. Rebuild the application (don't run it), this restores all nuget repositories
+3. Rebuild the application (don't run it)  
+   > this restores all nuget repositories
 4. Run the application
