@@ -17,7 +17,7 @@ What this means is that if the user was viewing models for Toyota for example, a
 
 This functionality is possibly more complicated than it needs to be, and might be looked at in future, but for now, this folder demonstrates the code required to achieve this functionality.  
 
-# DataForGettingMenu and GetEventParameters
+### DataForGettingMenu and GetEventParameters
 Two different fields need to be populated with information in order to keep track of the current context, or in the example, which manufacturer we are viewing.
 
 Data returned by **GetEventParameters** is what is available in **settings.ViewData** when the GetData and GetDataCount methods are invoked when a user performs a search or pages through the data.
