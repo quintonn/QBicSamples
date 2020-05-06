@@ -79,6 +79,7 @@
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
@@ -274,11 +275,11 @@
     <Compile Include="Models\SampleCategory.cs" />
     <Compile Include="Models\SampleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Samples\MultipleViews\Patients\AddPatient.cs" />
-    <Compile Include="Samples\MultipleViews\Patients\DeletePatient.cs" />
-    <Compile Include="Samples\MultipleViews\Patients\EditPatient.cs" />
-    <Compile Include="Samples\MultipleViews\Patients\ModifyPatient.cs" />
-    <Compile Include="Samples\MultipleViews\Patients\ViewPatients.cs" />
+    <Compile Include="Samples\UserSensitiveData\Patients\AddPatient.cs" />
+    <Compile Include="Samples\UserSensitiveData\Patients\DeletePatient.cs" />
+    <Compile Include="Samples\UserSensitiveData\Patients\EditPatient.cs" />
+    <Compile Include="Samples\UserSensitiveData\Patients\ModifyPatient.cs" />
+    <Compile Include="Samples\UserSensitiveData\Patients\ViewPatients.cs" />
     <Compile Include="SiteSpecific\AppSettings.cs" />
     <Compile Include="SiteSpecific\MenuNumber.cs" />
     <Compile Include="SiteSpecific\Startup.cs" />

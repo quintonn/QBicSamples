@@ -9,6 +9,6 @@ namespace QBicSamples.Models
         public virtual string DoctorId { get; set; }
         public virtual string Name { get; set; }
         public virtual string Surname { get; set; }
-        public virtual DateTime BirthDay { get; set; } = DateTime.ParseExact("1990-01-01", "yyyy-MM-dd", CultureInfo.InvariantCulture);
+        public virtual DateTime BirthDay { get; set; }
     }
 }

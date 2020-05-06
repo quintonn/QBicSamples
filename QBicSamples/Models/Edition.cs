@@ -17,6 +17,6 @@ namespace QBicSamples.Models
         public virtual string ManufacturerId { get; set; }
         public virtual string ModelId { get; set; }
         public virtual string EditionName { get; set; }
-        public virtual DateTime EditionYear { get; set; } = DateTime.ParseExact("1990-01-01", "yyyy-MM-dd", CultureInfo.InvariantCulture);
+        public virtual DateTime EditionYear { get; set; } 
     }
 }

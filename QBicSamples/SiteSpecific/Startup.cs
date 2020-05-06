@@ -7,6 +7,7 @@ using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Models;
 using WebsiteTemplate.SiteSpecific.DefaultsForTest;
 using WebsiteTemplate.Utilities;
+using Website.Data;
 
 namespace QBicSamples.SiteSpecific
 {
@@ -30,7 +31,6 @@ namespace QBicSamples.SiteSpecific
             // This code will create an admin user, user role and add all new menu items to the admin user roles, even if you create new ones later.
 
             // It is recommended to change your admin email and password asap.
-
             var userManager = Container.Resolve<DefaultUserManager>();
 
             using (var session = DataService.OpenSession())

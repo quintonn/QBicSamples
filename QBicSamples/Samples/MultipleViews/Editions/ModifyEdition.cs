@@ -34,7 +34,7 @@ namespace QBicSamples.Samples.MultipleViews.Editions
             result.Add(new HiddenInput("ManufacturerId", Item?.ManufacturerId ?? ManufacturerId));
             result.Add(new HiddenInput("ModelId", Item?.ModelId ?? ModelId));
             result.Add(new StringInput("EditionName", "Name", Item?.EditionName, null, true));
-            result.Add(new DateInput("EditionYear", "Year", Item?.EditionYear, null, false));
+            result.Add(new DateInput("EditionYear", "Year", Item?.EditionYear, null, false));//  = DateTime.ParseExact("1990-01-01", "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
             return result;
         }
