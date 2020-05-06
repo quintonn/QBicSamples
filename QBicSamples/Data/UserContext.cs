@@ -7,26 +7,21 @@ using WebsiteTemplate.Models;
 
 namespace Website.Data
 {
-    public class UserContext : UserContextBase<PatientUser>
+    public class UserContext : UserContextBase<User>
     {
         public UserContext(DataStore dataStore)
             : base(dataStore)
         {
         }
-        public void CheckDefaultValues()
+        public override System.Threading.Tasks.Task<User> FindUserByEmailAsync(string name)
         {
-
-        }
-
-        public override System.Threading.Tasks.Task<PatientUser> FindUserByEmailAsync(string name)
-        {
-            PatientUser result;
+            User result;
 
             using (var session = DataStore.OpenSession())
             {
-                result = session.CreateCriteria<PatientUser>()
+                result = session.CreateCriteria<User>()
                                 .Add(Restrictions.Eq("Email", name).IgnoreCase())
-                                .UniqueResult<PatientUser>();
+                                .UniqueResult<User>();
             }
             return Task.FromResult(result);
         }

@@ -239,7 +239,6 @@
   <ItemGroup>
     <Compile Include="Data\UserContext.cs" />
     <Compile Include="Models\Patient.cs" />
-    <Compile Include="Models\PatientUser.cs" />
     <Compile Include="Samples\MultipleViews\Editions\AddEdition.cs" />
     <Compile Include="Samples\MultipleViews\Editions\DetailsEdition.cs" />
     <Compile Include="Samples\MultipleViews\Editions\ModifyEdition.cs" />
