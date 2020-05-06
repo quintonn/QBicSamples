@@ -5,6 +5,7 @@ using QBicSamples.SiteSpecific;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Website.Models;
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Data;
 using WebsiteTemplate.Menus;
@@ -19,7 +20,9 @@ namespace QBicSamples.Samples.MultipleViews.Patients
     {
         public ModifyPatient(DataService dataService, bool isNew) : base(dataService, isNew)
         {
+
         }
+        private UserContext UserContext { get; set; }
         public override string EntityName => "Patient";
         public override EventNumber GetViewNumber()
         {
@@ -40,7 +43,7 @@ namespace QBicSamples.Samples.MultipleViews.Patients
             var name = GetValue("Name");
             var surname = GetValue("Surname");
             var birthday = GetValue<DateTime>("BirthDay");
-           // var currentLoggedInUser = Methods.GetLoggedInUser(UserContext) as User;
+            var currentLoggedInUser = Methods.GetLoggedInUser(UserContext) as PatientUser;
 
             if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(surname))
             {
