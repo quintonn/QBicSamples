@@ -1,5 +1,6 @@
 ﻿using BasicAuthentication.ControllerHelpers;
 using NHibernate;
+using NHibernate.Criterion;
 using QBicSamples.Models;
 using QBicSamples.SiteSpecific;
 using System;
@@ -34,7 +35,7 @@ namespace QBicSamples.Samples.MultipleViews.Patients
 
             result.Add(new StringInput("Name", "Name", Item?.Name, null, true));
             result.Add(new StringInput("Surname", "Surname", Item?.Surname, null, true));
-            result.Add(new DateInput("Birthday", "Year", Item?.BirthDay, null, false));
+            result.Add(new DateInput("Birthday", "Birth Day ", Item?.BirthDay, null, false));
 
             return result;
         }
@@ -42,8 +43,10 @@ namespace QBicSamples.Samples.MultipleViews.Patients
         {
             var name = GetValue("Name");
             var surname = GetValue("Surname");
-            var birthday = GetValue<DateTime>("BirthDay");
-            var currentLoggedInUser = Methods.GetLoggedInUser(UserContext) as PatientUser;
+            var birthday = GetValue<DateTime>("Birthday");
+            var currentLoggedInUser = session.CreateCriteria<User>()
+                                                   .Add(Restrictions.Eq("UserName", "Admin"))
+                                                   .UniqueResult<User>();
 
             if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(surname))
             {
@@ -64,6 +67,7 @@ namespace QBicSamples.Samples.MultipleViews.Patients
                 patient = session.Get<Patient>(id);
             }
 
+            patient.DoctorId = currentLoggedInUser.Id;
             patient.Name = name;
             patient.Surname = surname;
             patient.BirthDay = birthday;
