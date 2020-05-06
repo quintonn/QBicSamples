@@ -29,7 +29,11 @@ namespace QBicSamples.SiteSpecific
         public static MenuNumber DeleteEdition = new MenuNumber(2053);
         public static MenuNumber DetailsEdition = new MenuNumber(2054);
 
-        
+        public static MenuNumber ViewPatients = new MenuNumber(2060);
+        public static MenuNumber AddPatient = new MenuNumber(2061);
+        public static MenuNumber EditPatient = new MenuNumber(2062);
+        public static MenuNumber DeletePatient = new MenuNumber(2063);
+
         public static MenuNumber SampleView = new MenuNumber(3000);
         public static MenuNumber SampleAdd = new MenuNumber(3001);
         public static MenuNumber SampleEdit = new MenuNumber(3002);
