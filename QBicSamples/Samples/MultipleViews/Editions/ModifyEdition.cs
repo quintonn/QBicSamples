@@ -3,6 +3,7 @@ using QBicSamples.Models;
 using QBicSamples.SiteSpecific;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus;
@@ -31,10 +32,10 @@ namespace QBicSamples.Samples.MultipleViews.Editions
         {
             var result = new List<InputField>();
             result.Add(new HiddenInput("Id", Item?.Id)); // Need to add it so it's available when doing update
-            result.Add(new HiddenInput("ManufacturerId", Item?.ManufacturerId ?? ManufacturerId));
-            result.Add(new HiddenInput("ModelId", Item?.ModelId ?? ModelId));
+            result.Add(new HiddenInput("ManufacturerId", Item?.ManufacturerId));
+            result.Add(new HiddenInput("ModelId", Item?.ModelId));
             result.Add(new StringInput("EditionName", "Name", Item?.EditionName, null, true));
-            result.Add(new DateInput("EditionYear", "Year", Item?.EditionYear, null, false));//  = DateTime.ParseExact("1990-01-01", "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            result.Add(new DateInput("EditionYear", "Year", Item?.EditionYear, null, false));
 
             return result;
         }
@@ -43,9 +44,26 @@ namespace QBicSamples.Samples.MultipleViews.Editions
             var json = JsonHelper.Parse(data);
 
             ModelId = json.GetValue("ModelId"); 
-            ManufacturerId = json.GetValue("ManufacturerId");  
+            ManufacturerId = json.GetValue("ManufacturerId");
 
-            return await base.Initialize(data);
+            var id = json.GetValue("Id");
+
+            IsNew = String.IsNullOrWhiteSpace(id);
+            if (IsNew)
+            {
+                Item = new Edition();
+                Item.ManufacturerId = ManufacturerId;
+                Item.ModelId = ModelId;
+                Item.EditionYear = DateTime.ParseExact("1990-01-01", "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            }
+            else
+            {
+                using (var session = DataService.OpenSession())
+                {
+                    Item = session.Get<Edition>(id);
+                }
+            }
+            return new InitializeResult(true);
         }
         public override async Task<IList<IEvent>> PerformModify(bool isNew, string id, ISession session)
         {

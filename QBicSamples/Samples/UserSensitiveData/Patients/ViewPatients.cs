@@ -6,7 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.ServiceModel.Channels;
+using System.Threading.Tasks;
 using WebsiteTemplate.Backend.Services;
+using WebsiteTemplate.Data;
 using WebsiteTemplate.Menus;
 using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.ViewItems;
@@ -17,13 +19,14 @@ namespace QBicSamples.Samples.MultipleViews.Patients
 {
     public class ViewPatients : CoreView<Patient>
     {
-        public ViewPatients(DataService dataService) : base(dataService)
+        private UserContext UserContext { get; set; }
+        public ViewPatients(DataService dataService, UserContext userContext) : base(dataService)
         {
+            UserContext = userContext;
         }
         public override bool AllowInMenu => true;
 
         public override string Description => "View Patients";
-
         public override void ConfigureColumns(ColumnConfiguration columnConfig)
         {
             columnConfig.AddStringColumn("Name", "Name");
@@ -38,11 +41,11 @@ namespace QBicSamples.Samples.MultipleViews.Patients
                 x => x.Name
             };
         }
-        public override IQueryOver<Patient> CreateQuery(NHibernate.ISession session, GetDataSettings settings, Expression<Func<Patient, bool>> additionalCriteria = null)
-        {
-            var currentUser =  Methods.GetLoggedInUserAsync(UserContext) as User;
-            return base.CreateQuery(session, settings, x => x.DoctorId == currentUser.Id);
-        }
+      //  public override async Task<IQueryOver<Patient>> CreateQuery(NHibernate.ISession session, GetDataSettings settings, Expression<Func<Patient, bool>> additionalCriteria = null)
+      //  {
+      //      var currentUser = Methods.GetLoggedInUserAsync(UserContext) as User;
+     //       return base.CreateQuery(session, settings, x => x.DoctorId == currentUser.Id);
+     //   }
         public override EventNumber GetId()
         {
             return MenuNumber.ViewPatients;
