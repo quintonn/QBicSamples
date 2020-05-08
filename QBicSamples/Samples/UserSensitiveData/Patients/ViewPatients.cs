@@ -3,7 +3,9 @@ using NHibernate;
 using QBicSamples.Models;
 using QBicSamples.SiteSpecific;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.ServiceModel.Channels;
 using System.Threading.Tasks;
@@ -14,6 +16,7 @@ using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.ViewItems;
 using WebsiteTemplate.Menus.ViewItems.CoreItems;
 using WebsiteTemplate.Models;
+
 
 namespace QBicSamples.Samples.MultipleViews.Patients
 {
@@ -41,11 +44,11 @@ namespace QBicSamples.Samples.MultipleViews.Patients
                 x => x.Name
             };
         }
-      //  public override async Task<IQueryOver<Patient>> CreateQuery(NHibernate.ISession session, GetDataSettings settings, Expression<Func<Patient, bool>> additionalCriteria = null)
-      //  {
-      //      var currentUser = Methods.GetLoggedInUserAsync(UserContext) as User;
-     //       return base.CreateQuery(session, settings, x => x.DoctorId == currentUser.Id);
-     //   }
+        public override IQueryOver<Patient> CreateQuery(NHibernate.ISession session, GetDataSettings settings, Expression<Func<Patient, bool>> additionalCriteria = null)
+        {
+            var currentUser = Methods.GetLoggedInUserAsync(UserContext) as User;
+            return base.CreateQuery(session, settings, x => x.DoctorId == currentUser.Id);
+        }
         public override EventNumber GetId()
         {
             return MenuNumber.ViewPatients;
