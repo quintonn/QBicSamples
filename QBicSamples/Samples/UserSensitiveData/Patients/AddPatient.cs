@@ -7,7 +7,7 @@ namespace QBicSamples.Samples.UserSensitiveData.Patients
 {
     public class AddPatient : ModifyPatient
     {
-        public AddPatient(DataService dataService) : base(dataService, true)
+        public AddPatient(DataService dataService, UserContext userContext) : base(dataService, true, userContext)
         {
         }
 
