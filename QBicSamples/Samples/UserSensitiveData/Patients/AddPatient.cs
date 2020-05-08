@@ -1,13 +1,16 @@
 ﻿using QBicSamples.SiteSpecific;
+using WebsiteTemplate.Data;
 using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus.BaseItems;
 
 namespace QBicSamples.Samples.UserSensitiveData.Patients
 {
-    public class AddManufacturer : ModifyPatient
+    public class AddPatient : ModifyPatient
     {
-        public AddManufacturer(DataService dataService) : base(dataService, true)
+        private UserContext UserContext { get; set; }
+        public AddPatient(DataService dataService, UserContext userContext) : base(dataService, true, userContext)
         {
+            UserContext = userContext;
         }
 
         public override EventNumber GetId()
