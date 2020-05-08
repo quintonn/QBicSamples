@@ -7,10 +7,8 @@ namespace QBicSamples.Samples.UserSensitiveData.Patients
 {
     public class AddPatient : ModifyPatient
     {
-        private UserContext UserContext { get; set; }
-        public AddPatient(DataService dataService, UserContext userContext) : base(dataService, true, userContext)
+        public AddPatient(DataService dataService) : base(dataService, true)
         {
-            UserContext = userContext;
         }
 
         public override EventNumber GetId()

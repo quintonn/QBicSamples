@@ -20,9 +20,8 @@ namespace QBicSamples.Samples.UserSensitiveData.Patients
     public abstract class ModifyPatient : CoreModify<Patient>
     {
         private UserContext UserContext { get; set; }
-        public ModifyPatient( DataService dataService, bool isNew, UserContext userContext) : base(dataService, isNew)
+        public ModifyPatient( DataService dataService, bool isNew) : base(dataService, isNew)
         {
-            UserContext = userContext;
         }
         public override string EntityName => "Patient";
         public override EventNumber GetViewNumber()
@@ -45,7 +44,6 @@ namespace QBicSamples.Samples.UserSensitiveData.Patients
             var name = GetValue("Name");
             var surname = GetValue("Surname");
             var birthday = GetValue<DateTime>("Birthday");
-          //  UserContext = new UserContext(dataStore);
             var currentUser = await Methods.GetLoggedInUserAsync(UserContext) as User;
 
             if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(surname))
