@@ -34,9 +34,13 @@ namespace QBicSamples.Samples.UserSensitiveData.Patients
         {
             var json = JsonHelper.Parse(data);
 
-            var id = json.GetValue("Id");
             DoctorId = json.GetValue("DoctorId");
 
+            return await base.Initialize(data);
+
+            // We don't need this code, because it is done for us in CoreModify
+            //var id = json.GetValue("Id");
+            /*
             IsNew = String.IsNullOrWhiteSpace(id);
             if (IsNew)
             {
@@ -52,14 +56,17 @@ namespace QBicSamples.Samples.UserSensitiveData.Patients
                 }
             }
 
-            return new InitializeResult(true);
+            return new InitializeResult(true);*/
         }
         public override List<InputField> InputFields()
         {
             var result = new List<InputField>();
-            result.Add(new HiddenInput("DoctorId", Item?.DoctorId));
+            result.Add(new HiddenInput("DoctorId", DoctorId));
             result.Add(new StringInput("Name", "Name", Item?.Name, null, true));
             result.Add(new StringInput("Surname", "Surname", Item?.Surname, null, true));
+
+            // set the default birthday here
+            var defaultBirthDay = IsNew ? new DateTime(?? FIX ??) : Item?.BirthDay;
             result.Add(new DateInput("Birthday", "Birth Day ", Item?.BirthDay, null, false));
 
             return result;
