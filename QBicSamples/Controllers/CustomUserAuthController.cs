@@ -12,13 +12,15 @@ using WebsiteTemplate.Utilities;
 
 namespace QBicSamples.Controllers
 {
-    /* This class contains code that demonstrates setting up additional API's for external systems to call as well as a custom identity service to have users
+    /* This class contains code that demonstrates setting up additional API's for external systems,
+     * as well as a custom identity service to have users
      * for the external system be separate from the QBic users who are able to log into this website.
      * 
      * To be able to setup a custom Identity Service, a few things are needed, and have been added:
      *   1. A new "User" class. For this we created CustomUser class and can be found in \Models\CustomUser.cs
      *   2. This class is not a QBic DynamicClass and needs a NHibernate mapping file. This can be found in \Mappings\CustomUserMap.cs
-     *   3. A custom UserContext class. This can be found in \SiteSpecific\CustomUserContext.cs. This allows QBic to search for users and validate their passwords when they try log in.
+     *   3. A custom UserContext class. This can be found in \SiteSpecific\CustomUserContext.cs. 
+     *   This allows QBic to search for users and validate their passwords when they try log in.
      *   4. We need to register our CustomUserContext and configure the (token) path or URL to use for loging users in and getting new tokens.
      *      This is done in the \SiteSpecific\AppSettings.cs class.
      * 
