@@ -1,4 +1,6 @@
-﻿using BasicAuthentication.Security;
+﻿using BasicAuthentication.ControllerHelpers;
+using BasicAuthentication.Security;
+using QBicSamples.Models;
 using QBicSamples.SiteSpecific;
 using System;
 using System.Collections.Generic;
@@ -29,12 +31,18 @@ namespace QBicSamples.Controllers
      * Since users are not simply created by adding a User object into the database.
      * Instead, a UserManager is resolved and this is responsible for hashing and encrypting the password before placing it in the database.
      * 
-     * 
+     * In the code below we also show how to obtain the authenticated user who called the API, or at least whose access token was used to call the API.
      * 
      */
     [RoutePrefix("custom/api")]
     public class CustomUserAuthController : ApiController
     {
+        private CustomUserContext CustomUserContext { get; set; }
+        public CustomUserAuthController(CustomUserContext customUserContext)
+        {
+            CustomUserContext = customUserContext;
+        }
+
         [HttpGet]
         [Route("login")]
         [RequireHttps] // force URL to use HTTPS
@@ -129,7 +137,19 @@ namespace QBicSamples.Controllers
 
             try
             {
-                return Json("This is a value behind authorization");
+                // The following code only works because of the [Authorize] attribute, without it, the following might return null.
+                var tmp = await Methods.GetLoggedInUserAsync(CustomUserContext); // the result from this might not be null if a regular user calls this api somehow
+
+                var currentUser = tmp as CustomUser; // this will be null if the user is not of type CustomUser
+                if (currentUser == null)
+                {
+                    return Unauthorized();
+                }
+
+                // we could do this in one line, but we want to show the steps clearly
+                //var currentUser = await Methods.GetLoggedInUserAsync(CustomUserContext) as CustomUser;
+
+                return Json($"The user retrieving this data is: {currentUser.UserName} and is {currentUser.Age} years old");
             }
             catch (Exception error)
             {
