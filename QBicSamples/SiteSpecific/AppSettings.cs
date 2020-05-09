@@ -1,4 +1,9 @@
-﻿using System;
+﻿using BasicAuthentication.Authentication;
+using BasicAuthentication.Security;
+using Microsoft.Owin;
+using Owin;
+using System;
+using Unity;
 using WebsiteTemplate.Utilities;
 
 namespace QBicSamples.SiteSpecific
@@ -20,6 +25,28 @@ namespace QBicSamples.SiteSpecific
         public override string GetApplicationName()
         {
             return "QBic Samples";
+        }
+
+        // We've put these static variables here so it is clear from the samples how these values are used and relate to different parts of the platform
+        internal static string CUSTOM_CLIENT_ID = "CustomApiClient";
+        internal static string CUSTOM_TOKEN_PATH = "/custom/token";
+
+        public override void PerformAdditionalStartupConfiguration(IAppBuilder app, IUnityContainer container)
+        {
+            var mobileAuthOptions = new UserAuthenticationOptions()
+            {
+                AccessControlAllowOrigin = "*",
+                AccessTokenExpireTimeSpan = TimeSpan.FromHours(1),
+                RefreshTokenExpireTimeSpan = TimeSpan.FromHours(10),
+                AllowInsecureHttp = false, // or True
+                TokenEndpointPath = new PathString(CUSTOM_TOKEN_PATH),
+                UserContext = container.Resolve<CustomUserContext>(),
+                // could also just use this...
+                //UserContext = container.Resolve<UserContextBase<CustomUser>>(),
+                ClientId = CUSTOM_CLIENT_ID
+            };
+
+            app.UseBasicUserTokenAuthentication(mobileAuthOptions);
         }
     }
 }

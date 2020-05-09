@@ -238,6 +238,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BasicController.cs" />
+    <Compile Include="Controllers\CustomUserAuthController.cs" />
+    <Compile Include="Mappings\CustomUserMap.cs" />
+    <Compile Include="Models\CustomUser.cs" />
     <Compile Include="Models\Patient.cs" />
     <Compile Include="Samples\MultipleViews\Editions\AddEdition.cs" />
     <Compile Include="Samples\MultipleViews\Editions\DetailsEdition.cs" />
@@ -280,6 +284,7 @@
     <Compile Include="Samples\UserSensitiveData\Patients\ModifyPatient.cs" />
     <Compile Include="Samples\UserSensitiveData\Patients\ViewPatients.cs" />
     <Compile Include="SiteSpecific\AppSettings.cs" />
+    <Compile Include="SiteSpecific\CustomUserContext.cs" />
     <Compile Include="SiteSpecific\MenuNumber.cs" />
     <Compile Include="SiteSpecific\Startup.cs" />
   </ItemGroup>
