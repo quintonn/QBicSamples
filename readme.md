@@ -39,4 +39,7 @@ Some of the sample features in this repository include:
    This example demonstrates how to change the data depending on which user is currently logged in.
 6. [An example background process](https://github.com/quintonn/QBicSamples/tree/master/QBicSamples/Samples/BackgroundProcessing)  
    This is an example of setting up a background process that will run automatically
-7. [Adding a basic API Controller]()
+7. [Adding a basic API Controller](https://github.com/quintonn/QBicSamples/blob/master/QBicSamples/Controllers/BasicController.cs)  
+   This shows how to add a regular .NET Controller and how to configure the routing
+8. [Adding an additional Identity Service](https://github.com/quintonn/QBicSamples/blob/master/QBicSamples/Controllers/CustomUserAuthController.cs)  
+   This example shows how it is possible to add and use a custom identity service to use the QBic web server to serve as an Identity Service and secure data repository for an external system such as a web site or mobile application.

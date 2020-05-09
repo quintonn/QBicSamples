@@ -37,7 +37,7 @@ namespace QBicSamples.SiteSpecific
             // It is recommended to change your admin email and password asap.
             
 
-            // Get usermanager for CustomUser class
+            // Get a UserManager for CustomUser class, this is used to add, find, and work with our custom users.
             var customUserContext = Container.Resolve<CustomUserContext>();
             var dataProtectionProvider = Container.Resolve<IDataProtectionProvider>();
             var customUserManager = new CoreUserManager(customUserContext, dataProtectionProvider);

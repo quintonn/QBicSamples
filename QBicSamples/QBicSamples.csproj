@@ -299,6 +299,7 @@
     <Content Include="Frontend\fonts\fontawesome-webfont.ttf" />
     <Content Include="Frontend\fonts\fontawesome-webfont.eot" />
     <None Include="packages.config" />
+    <Content Include="README.md" />
     <None Include="Samples\AdvancedSample\readme.md" />
     <None Include="Samples\BackgroundProcessing\readme.md" />
     <None Include="Samples\BasicCrudSample\readme.md" />
