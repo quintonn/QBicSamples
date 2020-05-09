@@ -14,7 +14,7 @@ using WebsiteTemplate.Menus.ViewItems.CoreItems;
 using WebsiteTemplate.Models;
 
 
-namespace QBicSamples.Samples.MultipleViews.Patients
+namespace QBicSamples.Samples.UserSpecificData.Patients
 {
     public class ViewPatients : CoreView<Patient>
     {

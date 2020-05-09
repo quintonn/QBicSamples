@@ -15,7 +15,7 @@ using WebsiteTemplate.Menus.ViewItems.CoreItems;
 using WebsiteTemplate.Models;
 using WebsiteTemplate.Utilities;
 
-namespace QBicSamples.Samples.UserSensitiveData.Patients
+namespace QBicSamples.Samples.UserSpecificData.Patients
 {
     public abstract class ModifyPatient : CoreModify<Patient>
     {

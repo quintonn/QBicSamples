@@ -7,7 +7,7 @@ using WebsiteTemplate.Backend.Services;
 using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.ViewItems.CoreItems;
 
-namespace QBicSamples.Samples.UserSensitiveData.Patients
+namespace QBicSamples.Samples.UserSpecificData.Patients
 {
     public class DeletePatient : CoreDeleteAction<Patient>
     {
