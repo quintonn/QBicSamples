@@ -37,26 +37,6 @@ namespace QBicSamples.Samples.UserSpecificData.Patients
             DoctorId = json.GetValue("DoctorId");
 
             return await base.Initialize(data);
-
-            // We don't need this code, because it is done for us in CoreModify
-            //var id = json.GetValue("Id");
-            /*
-            IsNew = String.IsNullOrWhiteSpace(id);
-            if (IsNew)
-            {
-                Item = new Patient();
-                Item.DoctorId = DoctorId;
-                Item.BirthDay =  DateTime.ParseExact("1990-01-01", "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            }
-            else
-            {
-                using (var session = DataService.OpenSession())
-                {
-                    Item = session.Get<Patient>(id);
-                }
-            }
-
-            return new InitializeResult(true);*/
         }
         public override List<InputField> InputFields()
         {
@@ -66,8 +46,8 @@ namespace QBicSamples.Samples.UserSpecificData.Patients
             result.Add(new StringInput("Surname", "Surname", Item?.Surname, null, true));
 
             // set the default birthday here
-            var defaultBirthDay = IsNew ? new DateTime(?? FIX ??) : Item?.BirthDay;
-            result.Add(new DateInput("Birthday", "Birth Day ", Item?.BirthDay, null, false));
+            var defaultBirthDay = IsNew ? DateTime.ParseExact("1990-01-01", "yyyy-MM-dd", CultureInfo.InvariantCulture) : Item?.BirthDay;
+            result.Add(new DateInput("Birthday", "Birth Day ", defaultBirthDay, null, false));
 
             return result;
         }
