@@ -30,23 +30,14 @@ namespace QBicSamples.Samples.UserSpecificData.Patients
         {
             return MenuNumber.ViewPatients;
         }
-        public override async Task<InitializeResult> Initialize(string data)
-        {
-            var json = JsonHelper.Parse(data);
-
-            DoctorId = json.GetValue("DoctorId");
-
-            return await base.Initialize(data);
-        }
         public override List<InputField> InputFields()
         {
             var result = new List<InputField>();
-            result.Add(new HiddenInput("DoctorId", DoctorId));
             result.Add(new StringInput("Name", "Name", Item?.Name, null, true));
             result.Add(new StringInput("Surname", "Surname", Item?.Surname, null, true));
 
             // set the default birthday here
-            var defaultBirthDay = IsNew ? DateTime.ParseExact("1990-01-01", "yyyy-MM-dd", CultureInfo.InvariantCulture) : Item?.BirthDay;
+            var defaultBirthDay = IsNew ? new DateTime(1990, 01, 01) : Item?.BirthDay;
             result.Add(new DateInput("Birthday", "Birth Day ", defaultBirthDay, null, false));
 
             return result;
