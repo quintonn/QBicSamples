@@ -1,5 +1,6 @@
 ﻿using BasicAuthentication.Security;
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using WebsiteTemplate.Controllers;
@@ -17,10 +18,14 @@ namespace QBicSamples.Controllers
         public async Task<IHttpActionResult> This_Can_Be_Any_Name()
         {
             // Browse to https://localhost/qBicSamples/test/api/hello to see the value "Hello World" returned in the browser
-
+           
+            HttpClient cli = new HttpClient();
+            HttpResponseMessage req = await cli.GetAsync("https://api.weather.gov/points/39.7456,-97.0892");
+            
             try
             {
-                return Json("Hello World");
+                return Redirect("http://www.kp.md");
+                //return Json("Hello World");
             }
             catch (Exception error)
             {
