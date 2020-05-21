@@ -22,7 +22,7 @@ namespace QBicSamples.CallingExternalAPI
 
 
 
-        public List<Record> RecordsList = new List<Record>();
+        public List<Object> RecordsList = new List<Object>();
 
         public string Request;
 
@@ -41,7 +41,7 @@ namespace QBicSamples.CallingExternalAPI
         }
         public override int GetDataCount(GetDataSettings settings)
         {
-            return 1;
+            return 3;
         }
         public override IEnumerable GetData(GetDataSettings settings)
         {
@@ -55,7 +55,7 @@ namespace QBicSamples.CallingExternalAPI
             var result = await GetExternalResponse(url);
             Request = url;
             Response = result;
-            RecordsList.Add(new Record(url, result));
+            RecordsList.Add(new { Request = url, Response = result });
         }
         private async Task<string> GetExternalResponse(string url)
         {
@@ -63,17 +63,6 @@ namespace QBicSamples.CallingExternalAPI
             HttpResponseMessage response = await client.GetAsync(url);
             var result = await response.Content.ReadAsStringAsync();
             return result;
-        }
-    }
-
-    public class Record
-    {
-        private string Request;
-        private string Response;
-        public Record(string request, string response)
-        {
-            this.Request = request;
-            this.Response = response;
         }
     }
 }

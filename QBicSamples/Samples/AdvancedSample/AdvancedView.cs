@@ -120,10 +120,5 @@ namespace QBicSamples.BackEnd.AdvancedSample
                 new MenuItem("Add", MenuNumber.AdvancedAdd)
             };
         }
-
-        public override IEnumerable GetData(GetDataSettings settings)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
