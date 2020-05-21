@@ -68,7 +68,6 @@ namespace QBicSamples.BackEnd.AdvancedSample
                 return results;
             }
         }
-
         public IEnumerable TransformData(IList<SampleModel> data)
         {
             var results = new List<object>();
@@ -120,6 +119,11 @@ namespace QBicSamples.BackEnd.AdvancedSample
             {
                 new MenuItem("Add", MenuNumber.AdvancedAdd)
             };
+        }
+
+        public override IEnumerable GetData(GetDataSettings settings)
+        {
+            throw new NotImplementedException();
         }
     }
 }

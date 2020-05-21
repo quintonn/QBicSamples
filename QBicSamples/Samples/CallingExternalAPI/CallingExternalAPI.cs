@@ -1,19 +1,12 @@
-﻿using NHibernate;
-using NHibernate.Criterion;
-using QBicSamples.SiteSpecific;
-using QBicSamples.Models.Samples;
+﻿using QBicSamples.SiteSpecific;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using WebsiteTemplate.Backend.Services;
-using WebsiteTemplate.Menus;
-using WebsiteTemplate.Menus.BaseItems;
-using WebsiteTemplate.Menus.ViewItems;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using WebsiteTemplate.Menus.BaseItems;
+using WebsiteTemplate.Menus.ViewItems;
 
 namespace QBicSamples.CallingExternalAPI
 {
@@ -26,6 +19,14 @@ namespace QBicSamples.CallingExternalAPI
         public CallingExternalAPI()
         {
         }
+
+
+
+        public List<Record> RecordsList = new List<Record>();
+
+        public string Request;
+
+        public string Response;
         public override bool AllowInMenu => true;
 
         public override string Description => "Calling External API";
@@ -44,25 +45,35 @@ namespace QBicSamples.CallingExternalAPI
         }
         public override IEnumerable GetData(GetDataSettings settings)
         {
-            var responses = GetResponse();
-            yield return responses;
+            GetResponse();
+            return RecordsList;
         }
 
-        public async Task<IEnumerable<string>> GetResponse()
+        public async void GetResponse()
         {
             var url = "https://api.weather.gov/points/39.7456,-97.0892";
-
             var result = await GetExternalResponse(url);
-
-            return new string[] { url, result };
+            Request = url;
+            Response = result;
+            RecordsList.Add(new Record(url, result));
         }
         private async Task<string> GetExternalResponse(string url)
         {
             var client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(url);
-            response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadAsStringAsync();
             return result;
+        }
+    }
+
+    public class Record
+    {
+        private string Request;
+        private string Response;
+        public Record(string request, string response)
+        {
+            this.Request = request;
+            this.Response = response;
         }
     }
 }
