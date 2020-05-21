@@ -20,9 +20,7 @@ namespace QBicSamples.CallingExternalAPI
         {
         }
 
-
-
-        public List<Object> RecordsList = new List<Object>();
+        public List<Object> RecordsList;
 
         public string Request;
 
