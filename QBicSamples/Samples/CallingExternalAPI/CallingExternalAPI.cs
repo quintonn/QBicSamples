@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
 using WebsiteTemplate.Menus.BaseItems;
@@ -18,6 +19,7 @@ namespace QBicSamples.CallingExternalAPI
     {
         public CallingExternalAPI()
         {
+           
         }
 
         public List<Object> RecordsList;
@@ -39,28 +41,31 @@ namespace QBicSamples.CallingExternalAPI
         }
         public override int GetDataCount(GetDataSettings settings)
         {
-            return 3;
+            return 1;
         }
         public override IEnumerable GetData(GetDataSettings settings)
         {
-            GetResponse();
+            GetResponse().Wait();
             return RecordsList;
         }
 
-        public async void GetResponse()
+        public async Task<IEnumerable> GetResponse()
         {
             var url = "https://api.weather.gov/points/39.7456,-97.0892";
-            var result = await GetExternalResponse(url);
-            Request = url;
-            Response = result;
-            RecordsList.Add(new { Request = url, Response = result });
-        }
-        private async Task<string> GetExternalResponse(string url)
-        {
-            var client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync(url);
-            var result = await response.Content.ReadAsStringAsync();
-            return result;
+            using (var client = new HttpClient())
+            {
+                //GET Method
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/cap+xml"));
+                client.DefaultRequestHeaders.UserAgent.ParseAdd("MyAgent/1.0");
+                var response = await client.GetAsync("https://api.weather.gov/points/39.7456,-97.0892");
+                var result = await response.Content.ReadAsStringAsync();
+
+                Request = url;
+                Response = result;
+                RecordsList.Add(new { Request = url, Response = result });
+                return RecordsList;
+            }
         }
     }
 }
