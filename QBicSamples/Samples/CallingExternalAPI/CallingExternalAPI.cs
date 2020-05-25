@@ -19,10 +19,10 @@ namespace QBicSamples.CallingExternalAPI
     {
         public CallingExternalAPI()
         {
-           
+            
         }
 
-        public List<Object> RecordsList;
+        public List<Object> RecordsList = new List<Object>();
 
         public string Request;
 
@@ -41,7 +41,7 @@ namespace QBicSamples.CallingExternalAPI
         }
         public override int GetDataCount(GetDataSettings settings)
         {
-            GetResponse().Wait();
+            GetResponse();
             return RecordsList.Count;
         }
         public override IEnumerable GetData(GetDataSettings settings)
@@ -49,22 +49,52 @@ namespace QBicSamples.CallingExternalAPI
             return RecordsList;
         }
 
-        public async Task<IEnumerable> GetResponse()
+        public void GetResponse()
         {
             var url = "https://api.weather.gov/points/39.7456,-97.0892";
+           
             using (var client = new HttpClient())
             {
-                //GET Method
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/cap+xml"));
-                client.DefaultRequestHeaders.UserAgent.ParseAdd("MyAgent/1.0");
-                var response = await client.GetAsync("https://api.weather.gov/points/39.7456,-97.0892");
-                var result = await response.Content.ReadAsStringAsync();
+                try
+                {
+                    //GET Method
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/cap+xml"));
+                    client.DefaultRequestHeaders.UserAgent.ParseAdd("MyAgent/1.0");
+                    var asyncResponse = client.GetAsync(url);
+                    
+                    try
+                    {
+                        asyncResponse.Wait();
+                    }
+                    catch (Exception err)
+                    {
+                        Console.WriteLine(err.Message);
+                    }
+                    
+                    var response = asyncResponse.Result;
+                    var asyncResult = response.Content.ReadAsStringAsync();
 
-                Request = url;
-                Response = result;
-                RecordsList.Add(new { Request = url, Response = result });
-                return RecordsList;
+                    try
+                    {
+                        asyncResult.Wait();
+                    }
+                    catch (Exception err)
+                    {
+                        Console.WriteLine(err.Message);
+                    }
+
+                    var result = asyncResult.Result;
+
+                    Request = url;
+                    Response = result;
+                    
+                    RecordsList.Add(new { Request = url, Response = result });
+                }
+                catch (Exception err)
+                {
+                    Console.WriteLine(err.Message);
+                }
             }
         }
     }
