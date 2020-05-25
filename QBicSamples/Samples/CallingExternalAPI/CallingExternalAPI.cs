@@ -41,11 +41,11 @@ namespace QBicSamples.CallingExternalAPI
         }
         public override int GetDataCount(GetDataSettings settings)
         {
-            return 1;
+            GetResponse().Wait();
+            return RecordsList.Count;
         }
         public override IEnumerable GetData(GetDataSettings settings)
         {
-            GetResponse().Wait();
             return RecordsList;
         }
 
