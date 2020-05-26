@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Windows;
+using WebsiteTemplate.Menus;
 using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.ViewItems;
 
@@ -62,28 +64,37 @@ namespace QBicSamples.CallingExternalAPI
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/cap+xml"));
                     client.DefaultRequestHeaders.UserAgent.ParseAdd("MyAgent/1.0");
                     var asyncResponse = client.GetAsync(url);
-                    
+
                     try
                     {
                         asyncResponse.Wait();
+                        if (asyncResponse.Status.ToString() != "RanToCompletion")
+                        {
+                            return;
+                        };
                     }
                     catch (Exception err)
                     {
-                        Console.WriteLine(err.Message);
+                        MessageBox.Show(err.Message);
+                        return;
                     }
-                    
+
                     var response = asyncResponse.Result;
                     var asyncResult = response.Content.ReadAsStringAsync();
 
                     try
                     {
                         asyncResult.Wait();
+                        if (asyncResult.Status.ToString() != "RanToCompletion")
+                        {
+                            return;
+                        };
                     }
                     catch (Exception err)
                     {
-                        Console.WriteLine(err.Message);
+                        MessageBox.Show(err.Message);
+                        return;
                     }
-
                     var result = asyncResult.Result;
 
                     Request = url;
@@ -93,7 +104,8 @@ namespace QBicSamples.CallingExternalAPI
                 }
                 catch (Exception err)
                 {
-                    Console.WriteLine(err.Message);
+                    MessageBox.Show(err.Message);
+                    return;
                 }
             }
         }

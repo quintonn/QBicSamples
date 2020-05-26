@@ -123,6 +123,7 @@
     <Reference Include="PdfSharp.Charting, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
       <HintPath>..\packages\PDFsharp-MigraDoc-GDI.1.32.4334.0\lib\net20\PdfSharp.Charting.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="QBic.Core, Version=0.6.21.22646, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\QBic.Core.0.6.21.22646\lib\net461\QBic.Core.dll</HintPath>
       <Private>True</Private>
