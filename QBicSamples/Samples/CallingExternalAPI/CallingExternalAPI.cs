@@ -48,8 +48,13 @@ namespace QBicSamples.CallingExternalAPI
         }
         public override IEnumerable GetData(GetDataSettings settings)
         {
-            var screenlist = RecordsList.GetRange((settings.CurrentPage - 1) * settings.LinesPerPage, settings.LinesPerPage);
-            return screenlist;
+            var result = new List<Object>(); 
+
+            if (RecordsList.Count - ((settings.CurrentPage - 1) * settings.LinesPerPage) >= settings.LinesPerPage)
+            {
+                result = RecordsList.GetRange((settings.CurrentPage - 1) * settings.LinesPerPage, settings.LinesPerPage);
+            }
+            return result;
         }
 
         public void GetResponse()
