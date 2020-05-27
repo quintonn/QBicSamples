@@ -54,6 +54,13 @@ namespace QBicSamples.CallingExternalAPI
             {
                 result = RecordsList.GetRange((settings.CurrentPage - 1) * settings.LinesPerPage, settings.LinesPerPage);
             }
+
+            if ((RecordsList.Count - ((settings.CurrentPage - 1) * settings.LinesPerPage) < settings.LinesPerPage) &&
+                (RecordsList.Count - ((settings.CurrentPage - 1) * settings.LinesPerPage) > 0))
+            {
+                result = RecordsList.GetRange((settings.CurrentPage - 1) * settings.LinesPerPage, RecordsList.Count - ((settings.CurrentPage - 1) * settings.LinesPerPage));
+            }
+
             return result;
         }
 
