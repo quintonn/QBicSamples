@@ -2,14 +2,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using System.Web.Http;
-using System.Windows;
-using WebsiteTemplate.Menus;
 using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.ViewItems;
+using WebsiteTemplate.Utilities;
 
 namespace QBicSamples.CallingExternalAPI
 {
@@ -21,104 +18,113 @@ namespace QBicSamples.CallingExternalAPI
     {
         public CallingExternalAPI()
         {
-            
+
         }
 
-        public List<Object> RecordsList = new List<Object>();
+        private List<object> RecordsList = new List<object>();
+        private int TotalCount = 0;
+        private DateTime LastCalled = DateTime.Now;
+        private HttpClient Client = new HttpClient();
 
-        public string Request;
-
-        public string Response;
         public override bool AllowInMenu => true;
 
-        public override string Description => "Calling External API";
+        public override string Description => "External View";
         public override EventNumber GetId()
         {
             return MenuNumber.ViewExternalAPI;
         }
         public override void ConfigureColumns(ColumnConfiguration columnConfig)
         {
-            columnConfig.AddStringColumn("Request", "Request");
-            columnConfig.AddStringColumn("Response", "Response");
+            columnConfig.AddStringColumn("Name", "Name");
+            columnConfig.AddStringColumn("Surname", "Surname");
+            //TODO: Add some of the other fields
         }
         public override int GetDataCount(GetDataSettings settings)
         {
-            GetResponse();
-            return RecordsList.Count;
+            // This is only called the first time the view is shown to get the total number of records
+            DownloadData(settings);
+            return TotalCount;
         }
         public override IEnumerable GetData(GetDataSettings settings)
         {
-            var result = new List<Object>(); 
+            DownloadData(settings); // call again to download the data when user clicks search or next etc.
 
-            if (RecordsList.Count - ((settings.CurrentPage - 1) * settings.LinesPerPage) >= settings.LinesPerPage)
+            // If we had downloaded the entire dataset, we would return only the required items as follows
+            //return RecordsList.Skip((settings.CurrentPage - 1) * settings.LinesPerPage).Take(settings.LinesPerPage);
+
+            // But the current API returns exactly 20 records per call, so we have to make sure we return the correct set of data
+            if (settings.LinesPerPage < 20 && settings.CurrentPage % 2 == 0)
             {
-                result = RecordsList.GetRange((settings.CurrentPage - 1) * settings.LinesPerPage, settings.LinesPerPage);
+                return RecordsList.Skip(settings.LinesPerPage).Take(settings.LinesPerPage); // so we return the number of items required
             }
-
-            if ((RecordsList.Count - ((settings.CurrentPage - 1) * settings.LinesPerPage) < settings.LinesPerPage) &&
-                (RecordsList.Count - ((settings.CurrentPage - 1) * settings.LinesPerPage) > 0))
+            else
             {
-                result = RecordsList.GetRange((settings.CurrentPage - 1) * settings.LinesPerPage, RecordsList.Count - ((settings.CurrentPage - 1) * settings.LinesPerPage));
+                return RecordsList.Take(settings.LinesPerPage);
             }
-
-            return result;
         }
 
-        public void GetResponse()
+        private void DownloadData(GetDataSettings settings)
         {
-            var url = "https://api.weather.gov/points/39.7456,-97.0892";
-           
-            using (var client = new HttpClient())
+            var timeSinceLastCall = DateTime.Now.Subtract(LastCalled).TotalSeconds;
+            if (timeSinceLastCall < 3)
             {
-                try
+                return; // this is to prevent calling the web service too often and also because the first time the view is loaded it will be called twice. Not ideal, might get fixed.
+            }
+            LastCalled = DateTime.Now;
+
+            var goRestPageNumber = ((settings.CurrentPage - 1) * settings.LinesPerPage) / 20;
+            var url = $"https://gorest.co.in/public-api/users?_format=json&access-token=BDE6TlbOsFmmMopLgbL1mly7_DKlZpByHvpT&page={goRestPageNumber}&guid={Guid.NewGuid()}";
+            // the GUID is to make unique requests because gorest.co.in has a rate limit, but don't abuse this great free service by making lots of calls to it.
+
+            //TODO: you can also take the settings.Filter value and add it to the URL to filter by first_name and email, just 2 should be enough for this sample.
+            //      this api does not support using OR in the parameters so you will have to call the api twice if there is a filter value, one to filter by fist_name and again for email.
+            //      you will have to then check for and exclude duplicates using the id value.
+            //      You will have to use linq's union and/or except to join the lists to get to correct TotalCount value if you make more than 1 call
+
+            //GET Method
+            Client.DefaultRequestHeaders.Accept.Clear();
+            var asyncResponse = Client.GetAsync(url);
+
+            asyncResponse.Wait();
+            if (asyncResponse.Status != System.Threading.Tasks.TaskStatus.RanToCompletion)
+            {
+                throw asyncResponse.Exception;
+            };
+
+            var response = asyncResponse.Result;
+            var asyncResult = response.Content.ReadAsStringAsync();
+
+            asyncResult.Wait();
+            if (asyncResult.Status != System.Threading.Tasks.TaskStatus.RanToCompletion)
+            {
+                throw asyncResult.Exception;
+            }
+            var result = asyncResult.Result;
+
+            if (!string.IsNullOrEmpty(result))
+            {
+                var json = JsonHelper.Parse(result);
+                var meta = json.GetValue<JsonHelper>("_meta");
+                TotalCount = meta.GetValue<int>("totalCount");
+
+                var results = json.GetValue<JsonArray>("result");
+                RecordsList.Clear();
+                foreach (var item in results)
                 {
-                    //GET Method
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/cap+xml"));
-                    client.DefaultRequestHeaders.UserAgent.ParseAdd("MyAgent/1.0");
-                    var asyncResponse = client.GetAsync(url);
-
-                    try
+                    RecordsList.Add(new
                     {
-                        asyncResponse.Wait();
-                        if (asyncResponse.Status.ToString() != "RanToCompletion")
-                        {
-                            return;
-                        };
-                    }
-                    catch (Exception err)
-                    {
-                        MessageBox.Show(err.Message);
-                        return;
-                    }
-
-                    var response = asyncResponse.Result;
-                    var asyncResult = response.Content.ReadAsStringAsync();
-
-                    try
-                    {
-                        asyncResult.Wait();
-                        if (asyncResult.Status.ToString() != "RanToCompletion")
-                        {
-                            return;
-                        };
-                    }
-                    catch (Exception err)
-                    {
-                        MessageBox.Show(err.Message);
-                        return;
-                    }
-                    var result = asyncResult.Result;
-
-                    Request = url;
-                    Response = result;
-                    
-                    RecordsList.Add(new { Request = url, Response = result });
+                        Id = item.GetValue("id"),
+                        Name = item.GetValue("first_name"),
+                        Surname = item.GetValue("last_name"),
+                    });
+                    //TODO: Add more fields: email, gender, dob, phone, website and status
                 }
-                catch (Exception err)
+
+                //TODO: Make it work when the user selects all
+                if (settings.LinesPerPage > RecordsList.Count) // this is when the user sets the items per page to 25, 50, 100 or ALL. 
                 {
-                    MessageBox.Show(err.Message);
-                    return;
+                    // TODO: download next page from gorest.co.in because the user wants to see more items on the screen
+                    //       Use recursion for this. You may need to create a separate method to do the downloading
                 }
             }
         }
