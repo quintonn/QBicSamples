@@ -53,17 +53,17 @@ namespace QBicSamples.CallingExternalAPI
             DownloadData(settings); // call again to download the data when user clicks search or next etc.
 
             // If we had downloaded the entire dataset, we would return only the required items as follows
-            //return RecordsList.Skip((settings.CurrentPage - 1) * settings.LinesPerPage).Take(settings.LinesPerPage);
+            return RecordsList.Skip((settings.CurrentPage - 1) * settings.LinesPerPage).Take(settings.LinesPerPage);
 
             // But the current API returns exactly 20 records per call, so we have to make sure we return the correct set of data
-            if (settings.LinesPerPage < 20 && settings.CurrentPage % 2 == 0)
-            {
-                return RecordsList.Skip(settings.LinesPerPage).Take(settings.LinesPerPage); // so we return the number of items required
-            }
-            else
-            {
-                return RecordsList.Take(settings.LinesPerPage);
-            }
+          //  if (settings.LinesPerPage < 20 && settings.CurrentPage % 2 == 0)
+         //   {
+          //      return RecordsList.Skip(settings.LinesPerPage).Take(settings.LinesPerPage); // so we return the number of items required
+         //   }
+         //   else
+         //   {
+         //       return RecordsList.Take(settings.LinesPerPage);
+         //   }
         }
 
         private void DownloadData(GetDataSettings settings)
@@ -77,7 +77,6 @@ namespace QBicSamples.CallingExternalAPI
 
             var goRestPageNumber = ((settings.CurrentPage - 1) * settings.LinesPerPage) / 20;
             var url = $"https://jsonplaceholder.typicode.com/comments";
-            // the GUID is to make unique requests because gorest.co.in has a rate limit, but don't abuse this great free service by making lots of calls to it.
 
             //TODO: you can also take the settings.Filter value and add it to the URL to filter by first_name and email, just 2 should be enough for this sample.
             //      this api does not support using OR in the parameters so you will have to call the api twice if there is a filter value, one to filter by fist_name and again for email.
@@ -106,7 +105,6 @@ namespace QBicSamples.CallingExternalAPI
 
             if (!string.IsNullOrEmpty(result))
             {
-             
                 Comment[] comments = JsonConvert.DeserializeObject<Comment[]>(result);
                 RecordsList.Clear();
                 foreach (var comment in comments)
