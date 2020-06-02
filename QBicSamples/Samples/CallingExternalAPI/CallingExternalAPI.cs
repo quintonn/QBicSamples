@@ -41,7 +41,6 @@ namespace QBicSamples.CallingExternalAPI
             columnConfig.AddStringColumn("Name", "Name");
             columnConfig.AddStringColumn("Email", "Email");
             columnConfig.AddStringColumn("Body", "Body");
-            //TODO: Add some of the other fields
         }
         public override int GetDataCount(GetDataSettings settings)
         {
@@ -107,11 +106,7 @@ namespace QBicSamples.CallingExternalAPI
 
             if (!string.IsNullOrEmpty(result))
             {
-              //  var json = JsonHelper.Parse(result);
-              //  var meta = json.GetValue<JsonHelper>("_meta");
-              //  TotalCount = meta.GetValue<int>("totalCount");
-
-             //   var results = result.GetValue<JsonArray>("result");
+             
                 Comment[] comments = JsonConvert.DeserializeObject<Comment[]>(result);
                 RecordsList.Clear();
                 foreach (var comment in comments)
@@ -124,7 +119,6 @@ namespace QBicSamples.CallingExternalAPI
                         PostId = comment.postId,
                         Email = comment.email
                     });
-                    //TODO: Add more fields: email, gender, dob, phone, website and status
                 }
 
                 //TODO: Make it work when the user selects all
