@@ -130,7 +130,6 @@ namespace QBicSamples.CallingExternalAPI
             }
         }
     }
-
     public class Comment
     {
         public int postId { get; set; }
