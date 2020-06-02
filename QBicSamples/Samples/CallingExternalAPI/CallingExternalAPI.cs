@@ -54,16 +54,6 @@ namespace QBicSamples.CallingExternalAPI
 
             // If we had downloaded the entire dataset, we would return only the required items as follows
             return RecordsList.Skip((settings.CurrentPage - 1) * settings.LinesPerPage).Take(settings.LinesPerPage);
-
-            // But the current API returns exactly 20 records per call, so we have to make sure we return the correct set of data
-          //  if (settings.LinesPerPage < 20 && settings.CurrentPage % 2 == 0)
-         //   {
-          //      return RecordsList.Skip(settings.LinesPerPage).Take(settings.LinesPerPage); // so we return the number of items required
-         //   }
-         //   else
-         //   {
-         //       return RecordsList.Take(settings.LinesPerPage);
-         //   }
         }
 
         private void DownloadData(GetDataSettings settings)
@@ -109,15 +99,29 @@ namespace QBicSamples.CallingExternalAPI
                 RecordsList.Clear();
                 foreach (var comment in comments)
                 {
-                    RecordsList.Add(new
+                    if (settings.Filter != "")
                     {
-                        Id = comment.id,
-                        Name = comment.name,
-                        Body = comment.body,
-                        PostId = comment.postId,
-                        Email = comment.email
-                    });
+                        if (comment.name.ToLower().Contains(settings.Filter.ToLower()) || comment.email.ToLower().Contains(settings.Filter.ToLower()) || comment.body.ToLower().Contains(settings.Filter.ToLower()))
+                            RecordsList.Add(new
+                            {
+                                Id = comment.id,
+                                Name = comment.name,
+                                Body = comment.body,
+                                PostId = comment.postId,
+                                Email = comment.email
+                            });
+                        } else {
+                            RecordsList.Add(new
+                            {
+                                Id = comment.id,
+                                Name = comment.name,
+                                Body = comment.body,
+                                PostId = comment.postId,
+                                Email = comment.email
+                            });
+                    }
                 }
+
                 TotalCount = RecordsList.Count;
                 //TODO: Make it work when the user selects all
                 if (settings.LinesPerPage > RecordsList.Count) // this is when the user sets the items per page to 25, 50, 100 or ALL. 
