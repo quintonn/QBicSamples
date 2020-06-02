@@ -1,4 +1,5 @@
-﻿using QBicSamples.SiteSpecific;
+﻿using Newtonsoft.Json;
+using QBicSamples.SiteSpecific;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,8 +36,11 @@ namespace QBicSamples.CallingExternalAPI
         }
         public override void ConfigureColumns(ColumnConfiguration columnConfig)
         {
+            columnConfig.AddStringColumn("Id", "Id");
+            columnConfig.AddStringColumn("PostId", "PostId");
             columnConfig.AddStringColumn("Name", "Name");
-            columnConfig.AddStringColumn("Surname", "Surname");
+            columnConfig.AddStringColumn("Email", "Email");
+            columnConfig.AddStringColumn("Body", "Body");
             //TODO: Add some of the other fields
         }
         public override int GetDataCount(GetDataSettings settings)
@@ -73,7 +77,7 @@ namespace QBicSamples.CallingExternalAPI
             LastCalled = DateTime.Now;
 
             var goRestPageNumber = ((settings.CurrentPage - 1) * settings.LinesPerPage) / 20;
-            var url = $"https://gorest.co.in/public-api/users?_format=json&access-token=BDE6TlbOsFmmMopLgbL1mly7_DKlZpByHvpT&page={goRestPageNumber}&guid={Guid.NewGuid()}";
+            var url = $"https://jsonplaceholder.typicode.com/comments";
             // the GUID is to make unique requests because gorest.co.in has a rate limit, but don't abuse this great free service by making lots of calls to it.
 
             //TODO: you can also take the settings.Filter value and add it to the URL to filter by first_name and email, just 2 should be enough for this sample.
@@ -103,19 +107,22 @@ namespace QBicSamples.CallingExternalAPI
 
             if (!string.IsNullOrEmpty(result))
             {
-                var json = JsonHelper.Parse(result);
-                var meta = json.GetValue<JsonHelper>("_meta");
-                TotalCount = meta.GetValue<int>("totalCount");
+              //  var json = JsonHelper.Parse(result);
+              //  var meta = json.GetValue<JsonHelper>("_meta");
+              //  TotalCount = meta.GetValue<int>("totalCount");
 
-                var results = json.GetValue<JsonArray>("result");
+             //   var results = result.GetValue<JsonArray>("result");
+                Comment[] comments = JsonConvert.DeserializeObject<Comment[]>(result);
                 RecordsList.Clear();
-                foreach (var item in results)
+                foreach (var comment in comments)
                 {
                     RecordsList.Add(new
                     {
-                        Id = item.GetValue("id"),
-                        Name = item.GetValue("first_name"),
-                        Surname = item.GetValue("last_name"),
+                        Id = comment.id,
+                        Name = comment.name,
+                        Body = comment.body,
+                        PostId = comment.postId,
+                        Email = comment.email
                     });
                     //TODO: Add more fields: email, gender, dob, phone, website and status
                 }
@@ -128,5 +135,14 @@ namespace QBicSamples.CallingExternalAPI
                 }
             }
         }
+    }
+
+    public class Comment
+    {
+        public int postId { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public string email { get; set; }
+        public string body { get; set; }
     }
 }
