@@ -75,7 +75,7 @@ namespace QBicSamples.CallingExternalAPI
             }
             LastCalled = DateTime.Now;
 
-            var goRestPageNumber = ((settings.CurrentPage - 1) * settings.LinesPerPage) / 20;
+           // var goRestPageNumber = ((settings.CurrentPage - 1) * settings.LinesPerPage) / 20;
             var url = $"https://jsonplaceholder.typicode.com/comments";
 
             //TODO: you can also take the settings.Filter value and add it to the URL to filter by first_name and email, just 2 should be enough for this sample.
@@ -118,7 +118,7 @@ namespace QBicSamples.CallingExternalAPI
                         Email = comment.email
                     });
                 }
-
+                TotalCount = RecordsList.Count;
                 //TODO: Make it work when the user selects all
                 if (settings.LinesPerPage > RecordsList.Count) // this is when the user sets the items per page to 25, 50, 100 or ALL. 
                 {
