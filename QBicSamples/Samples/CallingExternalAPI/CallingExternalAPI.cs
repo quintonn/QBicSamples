@@ -23,12 +23,9 @@ namespace QBicSamples.CallingExternalAPI
         }
 
         private List<Object> RecordsList = new List<Object>();
-        private int TotalCount = 0;
         private DateTime LastCalled = DateTime.Now;
         private HttpClient Client = new HttpClient();
-
         public override bool AllowInMenu => true;
-
         public override string Description => "External View";
         public override EventNumber GetId()
         {
@@ -46,8 +43,7 @@ namespace QBicSamples.CallingExternalAPI
         {
             // This is only called the first time the view is shown to get the total number of records
             DownloadData(settings);
-            return TotalCount;
-
+            return RecordsList.Count;
         }
 
         public override IEnumerable GetData(GetDataSettings settings)
@@ -116,8 +112,6 @@ namespace QBicSamples.CallingExternalAPI
                     RecordsList = comments.ToList<Object>();
                 }
             }
-
-            TotalCount = RecordsList.Count;
         }
     }
 }
