@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using QBicSamples.Models;
 using QBicSamples.SiteSpecific;
 using System;
 using System.Collections;
@@ -7,7 +8,6 @@ using System.Linq;
 using System.Net.Http;
 using WebsiteTemplate.Menus.BaseItems;
 using WebsiteTemplate.Menus.ViewItems;
-using WebsiteTemplate.Utilities;
 
 namespace QBicSamples.CallingExternalAPI
 {
@@ -22,7 +22,7 @@ namespace QBicSamples.CallingExternalAPI
 
         }
 
-        private List<object> RecordsList = new List<object>();
+        private List<Object> RecordsList = new List<Object>();
         private int TotalCount = 0;
         private DateTime LastCalled = DateTime.Now;
         private HttpClient Client = new HttpClient();
@@ -47,7 +47,9 @@ namespace QBicSamples.CallingExternalAPI
             // This is only called the first time the view is shown to get the total number of records
             DownloadData(settings);
             return TotalCount;
+
         }
+
         public override IEnumerable GetData(GetDataSettings settings)
         {
             DownloadData(settings); // call again to download the data when user clicks search or next etc.
@@ -65,13 +67,9 @@ namespace QBicSamples.CallingExternalAPI
             }
             LastCalled = DateTime.Now;
 
-           // var goRestPageNumber = ((settings.CurrentPage - 1) * settings.LinesPerPage) / 20;
             var url = $"https://jsonplaceholder.typicode.com/comments";
 
-            //TODO: you can also take the settings.Filter value and add it to the URL to filter by first_name and email, just 2 should be enough for this sample.
-            //      this api does not support using OR in the parameters so you will have to call the api twice if there is a filter value, one to filter by fist_name and again for email.
-            //      you will have to then check for and exclude duplicates using the id value.
-            //      You will have to use linq's union and/or except to join the lists to get to correct TotalCount value if you make more than 1 call
+            RecordsList.Clear();
 
             //GET Method
             Client.DefaultRequestHeaders.Accept.Clear();
@@ -95,49 +93,31 @@ namespace QBicSamples.CallingExternalAPI
 
             if (!string.IsNullOrEmpty(result))
             {
-                Comment[] comments = JsonConvert.DeserializeObject<Comment[]>(result);
+                var comments = JsonConvert.DeserializeObject<Comment[]>(result);
                 RecordsList.Clear();
-                foreach (var comment in comments)
+
+                if (!String.IsNullOrWhiteSpace(settings.Filter))
                 {
-                    if (settings.Filter != "")
+                    foreach (var comment in comments)
                     {
-                        if (comment.name.ToLower().Contains(settings.Filter.ToLower()) || comment.email.ToLower().Contains(settings.Filter.ToLower()) || comment.body.ToLower().Contains(settings.Filter.ToLower()))
+                        if (comment.Name.ToLower().Contains(settings.Filter.ToLower()) || comment.Email.ToLower().Contains(settings.Filter.ToLower()) || comment.Body.ToLower().Contains(settings.Filter.ToLower()))
                             RecordsList.Add(new
                             {
-                                Id = comment.id,
-                                Name = comment.name,
-                                Body = comment.body,
-                                PostId = comment.postId,
-                                Email = comment.email
-                            });
-                        } else {
-                            RecordsList.Add(new
-                            {
-                                Id = comment.id,
-                                Name = comment.name,
-                                Body = comment.body,
-                                PostId = comment.postId,
-                                Email = comment.email
+                                Id = comment.Id,
+                                Name = comment.Name,
+                                Body = comment.Body,
+                                PostId = comment.PostId,
+                                Email = comment.Email
                             });
                     }
                 }
-
-                TotalCount = RecordsList.Count;
-                //TODO: Make it work when the user selects all
-                if (settings.LinesPerPage > RecordsList.Count) // this is when the user sets the items per page to 25, 50, 100 or ALL. 
+                else
                 {
-                    // TODO: download next page from gorest.co.in because the user wants to see more items on the screen
-                    //       Use recursion for this. You may need to create a separate method to do the downloading
+                    RecordsList = comments.ToList<Object>();
                 }
             }
+
+            TotalCount = RecordsList.Count;
         }
-    }
-    public class Comment
-    {
-        public int postId { get; set; }
-        public int id { get; set; }
-        public string name { get; set; }
-        public string email { get; set; }
-        public string body { get; set; }
     }
 }
