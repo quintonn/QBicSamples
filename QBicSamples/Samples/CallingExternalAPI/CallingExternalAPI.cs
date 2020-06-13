@@ -22,7 +22,7 @@ namespace QBicSamples.CallingExternalAPI
 
         }
 
-        private List<Object> RecordsList = new List<Object>();
+        private List<Comment> RecordsList = new List<Comment>();
         private DateTime LastCalled = DateTime.Now;
         private HttpClient Client = new HttpClient();
         public override bool AllowInMenu => true;
@@ -89,27 +89,17 @@ namespace QBicSamples.CallingExternalAPI
 
             if (!string.IsNullOrEmpty(result))
             {
-                var comments = JsonConvert.DeserializeObject<Comment[]>(result);
-                RecordsList.Clear();
-
-                if (!String.IsNullOrWhiteSpace(settings.Filter))
+                var comments = JsonConvert.DeserializeObject<List<Comment>>(result);
+                if (string.IsNullOrWhiteSpace(settings.Filter))
                 {
-                    foreach (var comment in comments)
-                    {
-                        if (comment.Name.ToLower().Contains(settings.Filter.ToLower()) || comment.Email.ToLower().Contains(settings.Filter.ToLower()) || comment.Body.ToLower().Contains(settings.Filter.ToLower()))
-                            RecordsList.Add(new
-                            {
-                                Id = comment.Id,
-                                Name = comment.Name,
-                                Body = comment.Body,
-                                PostId = comment.PostId,
-                                Email = comment.Email
-                            });
-                    }
+                    RecordsList = comments;
                 }
                 else
                 {
-                    RecordsList = comments.ToList<Object>();
+                    RecordsList = comments.Where(x => x.Email.IndexOf(settings.Filter, StringComparison.OrdinalIgnoreCase) > -1 ||
+                                                      x.Name.IndexOf(settings.Filter, StringComparison.OrdinalIgnoreCase) > -1 ||
+                                                      x.Body.IndexOf(settings.Filter, StringComparison.OrdinalIgnoreCase) > -1)
+                                          .ToList();
                 }
             }
         }
