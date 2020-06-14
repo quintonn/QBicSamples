@@ -12,7 +12,7 @@ namespace QBicSamples.Samples.CoursePresenterers
 
         public override string GetBaseItemName()
         {
-            return "Course Presenterer";
+            return "Course Presenter";
         }
 
         public override EventNumber GetBaseMenuId()
