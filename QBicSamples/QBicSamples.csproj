@@ -290,6 +290,7 @@
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\Patient.cs" />
     <Compile Include="Models\Region.cs" />
+    <Compile Include="Models\TableName.cs" />
     <Compile Include="Samples\CallingExternalAPI\CallingExternalAPI.cs" />
     <Compile Include="Samples\CourseTracker\Countries\AddCountry.cs" />
     <Compile Include="Samples\CourseTracker\Countries\DeleteCountry.cs" />
@@ -311,6 +312,8 @@
     <Compile Include="Samples\CourseTracker\Courses\ViewCourses.cs" />
     <Compile Include="Samples\CourseTracker\CourseTypes\CourseTypeMenuItem.cs" />
     <Compile Include="Samples\CourseTracker\Regions\RegionsMenuItem.cs" />
+    <Compile Include="Samples\ExportToCSV\ExportToCSV.cs" />
+    <Compile Include="Samples\ExportToCSV\ViewListOfTables.cs" />
     <Compile Include="Samples\MultipleViews\Editions\AddEdition.cs" />
     <Compile Include="Samples\MultipleViews\Editions\DetailsEdition.cs" />
     <Compile Include="Samples\MultipleViews\Editions\ModifyEdition.cs" />
@@ -351,6 +354,7 @@
     <Compile Include="Samples\UserSpecificData\Patients\EditPatient.cs" />
     <Compile Include="Samples\UserSpecificData\Patients\ModifyPatient.cs" />
     <Compile Include="Samples\UserSpecificData\Patients\ViewPatients.cs" />
+    <Compile Include="Utilities\ExportToCsvUtility.cs" />
     <Compile Include="SiteSpecific\AppSettings.cs" />
     <Compile Include="SiteSpecific\CustomUserContext.cs" />
     <Compile Include="SiteSpecific\MenuNumber.cs" />

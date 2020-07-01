@@ -35,6 +35,9 @@ namespace QBicSamples.SiteSpecific
         public static MenuNumber DeletePatient = new MenuNumber(2063);
 
         public static MenuNumber ViewExternalAPI = new MenuNumber(2070);
+        
+        public static MenuNumber ExportToCSV = new MenuNumber(2080);
+        public static MenuNumber ViewTables = new MenuNumber(2090);
 
         public static MenuNumber SampleView = new MenuNumber(3000);
         public static MenuNumber SampleAdd = new MenuNumber(3001);
